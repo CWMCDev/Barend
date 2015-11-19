@@ -23,7 +23,7 @@ class portal_main {
 		foreach($cookies as $key=>$val) $cookiestr .= "$key=$val; ";
 		self::$cookiestr = $cookiestr;
 
-    echo SUCCES!;
+    echo 'SUCCES!';
       
 		return true;
   }
