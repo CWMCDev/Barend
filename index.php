@@ -12,19 +12,13 @@ $router->map( 'GET', '/', function() {
 $router->map( 'GET', '/students/grades', function() {
   $username = '';
   $password = '';
-  if(isset($_GET['username']) @@ isset($_GET['password'])){
-
+	if(isset($_GET['username']) && isset($_GET['password'])) {
     $username = $_GET['username'];
-    $password = $_GET['password']
+    $password = $_GET['password'];
   }
+  
   $portal = new Portal();
-  $portal->login(username, password);
-
-
-});
-
-$router->map ('GET','/students/schedule/:week', function($week) {
-
+  $portal->login('https://leerlingen.candea.nl',username, password);
 });
 
 // match current request url
