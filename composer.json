@@ -1,5 +1,5 @@
 {
     "require": {
-        "altorouter/altorouter": "1.1.0"
+        "slim/slim": "^2.6"
     }
 }

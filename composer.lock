@@ -4,31 +4,34 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e8ee1850d5bb9617092fbc26548e2be",
-    "content-hash": "fdb55ab3a826cc81720434dd90eab926",
+    "hash": "e59382302fffc77a73ae1cac763dc3fa",
+    "content-hash": "34cbde6dd673c3785e2cae768e00cfc8",
     "packages": [
         {
-            "name": "altorouter/altorouter",
-            "version": "v1.1.0",
+            "name": "slim/slim",
+            "version": "2.6.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dannyvankooten/AltoRouter.git",
-                "reference": "09d9d946c546bae6d22a7654cdb3b825ffda54b4"
+                "url": "https://github.com/slimphp/Slim.git",
+                "reference": "20a02782f76830b67ae56a5c08eb1f563c351a37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dannyvankooten/AltoRouter/zipball/09d9d946c546bae6d22a7654cdb3b825ffda54b4",
-                "reference": "09d9d946c546bae6d22a7654cdb3b825ffda54b4",
+                "url": "https://api.github.com/repos/slimphp/Slim/zipball/20a02782f76830b67ae56a5c08eb1f563c351a37",
+                "reference": "20a02782f76830b67ae56a5c08eb1f563c351a37",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
+            "suggest": {
+                "ext-mcrypt": "Required for HTTP cookie encryption"
+            },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "AltoRouter.php"
-                ]
+                "psr-0": {
+                    "Slim": "."
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -36,27 +39,19 @@
             ],
             "authors": [
                 {
-                    "name": "Danny van Kooten",
-                    "email": "dannyvankooten@gmail.com",
-                    "homepage": "http://dannyvankooten.com/"
-                },
-                {
-                    "name": "Koen Punt",
-                    "homepage": "https://github.com/koenpunt"
-                },
-                {
-                    "name": "niahoo",
-                    "homepage": "https://github.com/niahoo"
+                    "name": "Josh Lockhart",
+                    "email": "info@joshlockhart.com",
+                    "homepage": "http://www.joshlockhart.com/"
                 }
             ],
-            "description": "A lightning fast router for PHP",
-            "homepage": "https://github.com/dannyvankooten/AltoRouter",
+            "description": "Slim Framework, a PHP micro framework",
+            "homepage": "http://github.com/codeguy/Slim",
             "keywords": [
-                "lightweight",
-                "router",
-                "routing"
+                "microframework",
+                "rest",
+                "router"
             ],
-            "time": "2014-04-16 09:44:40"
+            "time": "2015-03-08 18:41:17"
         }
     ],
     "packages-dev": [],
