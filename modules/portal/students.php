@@ -1,4 +1,5 @@
 <?php
+class portal_main {
   public static $cookiestr = '';
 	public static $url_students = 'https://leerlingen.candea.nl';
 	public static $url_parents = 'https://ouders.candea.nl';
@@ -26,4 +27,5 @@
       
 		return true;
   }
+}
 ?>
