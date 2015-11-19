@@ -1,5 +1,5 @@
 <?php
-class portal_main {
+class Portal {
   public static $cookiestr = '';
 	public static $url_students = 'https://leerlingen.candea.nl';
 	public static $url_parents = 'https://ouders.candea.nl';
