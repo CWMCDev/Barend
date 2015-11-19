@@ -9,7 +9,7 @@ $router->map( 'GET', '/', function() {
 	require __DIR__ . '/views/home.html';
 });
 
-$router->map( 'GET', '/students/grades', function() {
+$router->map( 'GET', '/students/grades/:name/:pass', function($name, $pass) {
   $username = '';
   $password = '';
 	if(isset($_GET['username']) && isset($_GET['password'])) {
@@ -18,7 +18,7 @@ $router->map( 'GET', '/students/grades', function() {
   }
   
   $portal = new Portal();
-  $portal->login('https://leerlingen.candea.nl',username, password);
+  $portal->login('https://leerlingen.candea.nl',$name, $pass);
 });
 
 // match current request url
