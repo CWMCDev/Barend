@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+require 'modules/portal/portal_students.php'
 
 // initialize slim app
 $app = new \Slim\Slim();
@@ -10,7 +11,21 @@ $app->get('/portal', function () {
 });
 
 $app->get('/portal/students/grades', function () {
-    echo "Hello, ";
+    $pass = '';
+    $user = '';
+    
+    if (isset($_GET['username']) && isset($_GET['password'])) {
+      $pass = $_GET['password'];
+      $user = $_GET['username'];
+    }
+    
+    if($user == '' || $pass == '') {
+      $app->halt(401, 'Please set username and password first');
+    }
+    
+    $portal = new $Portal_Students();
+    $portal->login($user, $pass);
+	}
 });
 
 $app->get('/portal/students/presention', function () {
