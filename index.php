@@ -25,7 +25,6 @@ $app->get('/portal/students/grades', function () {
     
     $portal = new $Portal_Students();
     $portal->login($user, $pass);
-	}
 });
 
 $app->get('/portal/students/presention', function () {
