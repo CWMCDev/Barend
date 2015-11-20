@@ -21,6 +21,7 @@ $app->get('/portal/students/grades', function () {
     
     if($user == '' || $pass == '') {
       echo '401, Please set username and password first';
+      return false;
     }
     
     $portal = new $Portal_Students();
