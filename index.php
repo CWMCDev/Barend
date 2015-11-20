@@ -1,6 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-require 'modules/portal/portal_students.php'
+require 'modules/portal/portal_students.php';
 
 // initialize slim app
 $app = new \Slim\Slim();
