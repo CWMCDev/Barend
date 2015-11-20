@@ -6,7 +6,7 @@ $app = new \Slim\Slim();
 
 // define all routes
 $app->get('/portal', function () {
-    echo readfile('views/portal.html');
+    echo file_get_contents('views/portal.html');
 });
 
 $app->get('/portal/students/grades', function () {
