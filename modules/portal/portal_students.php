@@ -1,6 +1,8 @@
 <?php
 class Portal {
  
+  public static cookiestr = '';
+ 
   public static function login($user='', $password='') {
 		$logindata = array(
 			'wu_loginname' => urlencode($user),
@@ -17,7 +19,7 @@ class Portal {
 		foreach($cookies as $key=>$val) $cookiestr .= "$key=$val; ";
 		self::$cookiestr = $cookiestr;
 
-     echo 'GG';
+    echo 'GG';
     
 		return true;
 	}
