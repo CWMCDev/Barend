@@ -1,7 +1,7 @@
 <?php
 class Portal {
  
-  public static cookiestr = '';
+  public static $cookiestr = '';
  
   public static function login($user='', $password='') {
 		$logindata = array(
