@@ -1,5 +1,5 @@
 <?php
-class portal_student {
+class Portal {
  
   public static function login($user='', $password='') {
 		$logindata = array(
