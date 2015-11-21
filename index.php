@@ -23,7 +23,7 @@ $app->get('/portal/students/grades', function () {
       echo '401, Please set username and password first';
     }
     
-    $portal = new $Portal_Students();
+    $portal = new portal_student();
     $portal->login($user, $pass);
 });
 
