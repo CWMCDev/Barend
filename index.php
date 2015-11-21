@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
-require 'classes/curl.php'
+require 'classes/curl.php';
 
 require 'modules/portal/portal_students.php';
 
