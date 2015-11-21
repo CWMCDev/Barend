@@ -72,7 +72,7 @@ class curl {
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_TIMEOUT, '3');
       //Extra options
-      if(ini_get('open_basedir'){}
+      if(ini_get('open_basedir')){}
       else {
         foreach($options as $opt => $val)
           curl_setopt($ch, $opt, $val);
