@@ -30,8 +30,11 @@ class curl {
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_TIMEOUT, '3');
       //Extra options
-      foreach($options as $opt => $val)
-          curl_setopt($ch, $opt, $val);
+      if(ini_get('open_basedir')){}
+      else {
+        foreach($options as $opt => $val)
+            curl_setopt($ch, $opt, $val);
+      }
       //Headers
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
       //Set the content as a variable
