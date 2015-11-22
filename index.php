@@ -14,6 +14,8 @@ $app->get('/portal', function () {
 });
 
 $app->get('/portal/students/grades', function () {
+    $app = Slim::getInstance();
+  
     $pass = '';
     $user = '';
     
