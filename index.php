@@ -13,11 +13,8 @@ $app->get('/portal', function () {
     echo file_get_contents('views/portal.html');
 });
 
-$app->get('/portal/students/grades', function () {
+$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
     $app = \Slim\Slim::getInstance();
-  
-    $pass = '';
-    $user = '';
     
     if (isset($_GET['username']) && isset($_GET['password'])) {
       $pass = $_GET['password'];
