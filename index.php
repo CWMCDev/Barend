@@ -22,7 +22,7 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
     $portal = new Portal();
     $portal->login($user, $pass);
     
-    $portal->getGrades();
+    $portal->getGrades(1);
 });
 
 $app->get('/portal/students/presention', function () {
