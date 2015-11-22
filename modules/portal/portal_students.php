@@ -24,7 +24,7 @@ class Portal {
 		return true;
 	}
   
-  public function parseGrades($page){
+  public static function parseGrades($page){
     $classes = array();
 		$page = str_get_html($page);
 		$i = 1;
@@ -55,7 +55,7 @@ class Portal {
     
     return array(
 			'periode'=>$periode,
-			'classes'=>parseGrades(curl::get($url.'/Portaal/Cijferlijst/Examendossier/Cijferlijst?wis_ajax&ajax_object=727&periode727='.$periode, array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)))
+			'classes'=>self::parseGrades(curl::get($url.'/Portaal/Cijferlijst/Examendossier/Cijferlijst?wis_ajax&ajax_object=727&periode727='.$periode, array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)))
 		);
   }
   
