@@ -1,11 +1,11 @@
 <?php
-require 'vendor/autoload.php';
-
+require 'Slim/Slim.php';
 require 'classes/curl.php';
 
 require 'modules/portal/portal_students.php';
 
 // initialize slim app
+\Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
 // define all routes
@@ -23,7 +23,7 @@ $app->get('/portal/students/grades', function () {
     }
     
     if($user == '' || $pass == '') {
-     self::$app->halt(401, 'Please set username and password first');
+     $app->halt(401, 'Please set username and password first');
     }
     
     $portal = new Portal();
