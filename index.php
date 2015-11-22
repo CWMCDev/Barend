@@ -4,14 +4,8 @@ require 'classes/curl.php';
 
 require 'modules/portal/portal_students.php';
 
-// initialize slim app
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-
-// define all routes
-$app->get('/portal', function () {
-    echo file_get_contents('views/portal.html');
-});
 
 $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
     $app = \Slim\Slim::getInstance();
@@ -27,6 +21,8 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
     
     $portal = new Portal();
     $portal->login($user, $pass);
+    
+    $portal->getGrades();
 });
 
 $app->get('/portal/students/presention', function () {
