@@ -26,7 +26,21 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
 });
 
 $app->get('/portal/students/presention', function () {
-    echo "Hello, ";
+    $app = \Slim\Slim::getInstance();
+    
+    if (isset($_GET['username']) && isset($_GET['password'])) {
+      $pass = $_GET['password'];
+      $user = $_GET['username'];
+    }
+    
+    if($user == '' || $pass == '') {
+     $app->halt(401, 'Please set username and password first');
+    }
+    
+    $portal = new Portal();
+    $portal->login($user, $pass);
+    
+    $portal->getPresention();
 });
 
 $app->get('/portal/students/profile', function () {
