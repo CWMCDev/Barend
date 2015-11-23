@@ -2,6 +2,8 @@
 class Portal {
  
   public static $cookiestr = '';
+  
+  public static $replaces = array(' (Oorspronkelijk)', "\r\n");
  
   public static function login($user='', $password='') {
 		$logindata = array(
@@ -19,32 +21,33 @@ class Portal {
 		foreach($cookies as $key=>$val) $cookiestr .= "$key=$val; ";
 		self::$cookiestr = $cookiestr;
 
-    echo 'GG';
-    
 		return true;
 	}
   
   public static function parseGrades($page){
     $classes = array();
-		$page = str_get_html($page);
-		$i = 1;
-		foreach($page->find('ul>li') as $f) {
-			if($f->class != 'result__header_left') $classes[$i] = array('line'=>$i, 'title'=>$f->find('span', 0)->title, 'text'=>$f->plaintext, 'grades'=>array());
+    
+    $html = str_get_dom($page);
+		$table = $html('table tbody tr');
+    
+    $i = 0;
+    foreach($html('table tbody tr td.vak span') as $vak) {
+			$classes[$i] = array('line'=>$i, 'title'=>$vak->title, 'text'=>$vak->getPlainText(), 'grades'=>array());
 			$i++;
 		}
-		$gi = 0;
-		$table = $page->find('.result__table', 0);
-		foreach($table->find('tr') as $g) {
-			foreach($g->find('.cijfer') as $s) {
-				$info = str_get_html(html_entity_decode($s->find('a', 0)->rel));
-				$tds = array();
-				foreach($info->find('tr') as $tr) {
-					$tds[str_replace(' ', '_', strtolower($tr->find ('td', 0)->plaintext))] = str_replace(self::$replaces, '', $tr->find ('td', 2)->plaintext);
-				}
-				$classes[$gi]['grades'][] = $tds;
-			}
-			$gi++;
-		}
+    
+    $gi = 0;
+    foreach ($table as $tr) {
+      $tds = array();
+      $sp = 0;
+      foreach ($tr('td div div span a span') as $span) {
+        $tds[$sp] = $span->getPlainText();
+        $sp++;
+      }
+      $classes[$gi]['grades'] = $tds;
+      $gi++;
+    }
+
 		$return = array();
 		foreach($classes as $c)
 			$return[] = $c;
@@ -52,11 +55,14 @@ class Portal {
   }
   
   public static function getGrades($periode) {
-    
     return array(
 			'periode'=>$periode,
-			'classes'=>self::parseGrades(curl::get($url.'/Portaal/Cijferlijst/Examendossier/Cijferlijst?wis_ajax&ajax_object=727&periode727='.$periode, array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)))
+			'classes'=>self::parseGrades(curl::get('https://leerlingen.candea.nl/Portaal/Cijferlijst/Examendossier/Cijferlijst?wis_ajax&ajax_object=727&periode727='.$periode, array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)))
 		);
+  }
+  
+  public static function getPresention() {
+    
   }
   
 }

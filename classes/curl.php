@@ -72,11 +72,8 @@ class curl {
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_TIMEOUT, '3');
       //Extra options
-      if(ini_get('open_basedir')){}
-      else {
-        foreach($options as $opt => $val)
+      foreach($options as $opt => $val)
           curl_setopt($ch, $opt, $val);
-      }
       //Add POST content
       curl_setopt($ch,CURLOPT_POST, count($content));
       curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
