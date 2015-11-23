@@ -61,8 +61,50 @@ class Portal {
 		);
   }
   
-  public static function getPresention() {
+  public static function parsePresention($page){
+    $presentie = array();
     
+    $html = str_get_dom($page);
+    $table = $html('table.wp3-presentie-table tbody tr');
+    
+    $a = 1;
+    foreach($table as $tr) {
+      $week = $tr('th', 0)->getPlainText();
+      $presentie[$a] = array('week'=>$week, 'dagen'=>array());
+      
+    
+      $dagen = array('Maandag'=>array(), 'Dinsdag'=>array(), 'Woensdag'=>array(), 'Donderdag'=>array(), 'Vrijdag'=>array());
+      $dagenNamen = array('Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag');
+    
+      $uren = array();
+      
+      $i = 0;
+      $dag = 0;
+      foreach($tr('td') as $uur) {
+        $uren[$i] = array('uur'=>($i+1), 'status'=>str_replace("last-of-week","",$uur->class));
+        
+        if ($i == 9) {
+          $dagen[$dagenNamen[$dag]] = $uren;
+          
+          $dag++;
+          $i = 0;
+        }
+        $i++;
+      }
+      $presentie[$a]['dagen'] = $dagen;
+      $a++;
+    }
+    
+    $return = array();
+    foreach($presentie as $c)
+      $return[] = $c;
+		return $return;
+  }
+  
+  public static function getPresention() {
+    return array(
+      'presentie'=>self::parsePresention(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=807', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)))
+    );
   }
   
 }
