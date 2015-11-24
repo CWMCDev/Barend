@@ -6,6 +6,11 @@ class Portal {
   public static $replaces = array(' (Oorspronkelijk)', "\r\n");
  
   public static function login($user='', $password='') {
+    if (substr($user,0,1) != 'cc'){
+      $user = "cc" . $user;
+      error_log($user);
+    }
+
 		$logindata = array(
 			'wu_loginname' => urlencode($user),
 			'wu_password' => urlencode($password),
