@@ -6,9 +6,9 @@ class Portal {
   public static $replaces = array(' (Oorspronkelijk)', "\r\n");
  
   public static function login($user='', $password='') {
-    if (substr($user,0,1) != 'cc'){
+    if (substr($user,0,2) !== 'cc'){
       $user = "cc" . $user;
-      error_log($user);
+      error_log($user . " , " . substr($user,0,2) );
     }
 
 		$logindata = array(
