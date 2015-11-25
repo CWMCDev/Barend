@@ -33,9 +33,11 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
     }
     
     $portal = new Portal();
-    $portal->login($user, $pass);
-    
-    createResponse($portal->getGrades(1));
+    if($portal->login($user, $pass)) {
+    	createResponse($portal->getGrades(1));
+    } else {
+    	$app->halt(401, 'Wrong Password or Username!');
+    }
 });
 
 $app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
@@ -51,9 +53,11 @@ $app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
     }
     
     $portal = new Portal();
-    $portal->login($user, $pass);
-    
-    createResponse($portal->getPresention());
+    if($portal->login($user, $pass)) {
+    	createResponse($portal->getPresention());
+    } else {
+    	$app->halt(401, 'Wrong Password or Username!');
+    }
 });
 
 $app->get('/zportal/settoken/:key', function($key) use($app) {
