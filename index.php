@@ -56,16 +56,40 @@ $app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
     createResponse($portal->getPresention());
 });
 
-$app->get('/portal/students/profile', function () {
-    echo "Hello, ";
+$app->get('/zportal/settoken/:key', function($key) use($app) {
+	$zportal = new Zportal();
+	$zportal->setAppKey($key);
+	if($zportal->getToken()) {
+		setcookie('ztoken', $zportal->token, time()+31536000, "/");
+		createResponse([
+			'token' => $zportal->token
+		]);
+	} else {
+		$app->halt(403, json_encode(['error'=>'Deze code is niet correct']));
+	}
 });
 
-$app->get('/portal/students/class', function () {
-    echo "";
-});
+$app->get('/zportal/schedule/:week', function($week) use($app) {
+	$token = '';
+	if(isset($_GET['token'])) $token = $_GET['token'];
+	elseif(isset($_COOKIE['ztoken'])) $token = $_COOKIE['ztoken'];
 
-$app->get('/portal/students', function () {
-    echo "";
+	if($token == '') {
+		$app->halt(401, 'Please set the token first');
+	}
+
+	if($week == 0) 
+		$week = date('W');
+	$zportal = new Zportal();
+	$zportal->setToken($token);
+	$schedule = $zportal->getSchedule($week);
+	if($schedule->response->status != 200) {
+		if($schedule->response->status == 401)
+			$app->halt(401, 'The token is incorrect');
+
+		$app->halt(500, $schedule->response->message);
+	}
+	createResponse($schedule->response->data);
 });
 
 $app->run();
