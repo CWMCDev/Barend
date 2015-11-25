@@ -5,6 +5,7 @@ include('classes/ganon.php');
 
 
 require 'modules/portal/portal_student.php';
+require 'modules/zportal/zportal_main.php';
 
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
