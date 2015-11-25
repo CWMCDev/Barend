@@ -21,7 +21,8 @@ function createResponse($data=array()) {
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
+$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
+    $app = \Slim\Slim::getInstance();
     
     if (isset($_GET['username']) && isset($_GET['password'])) {
       $pass = $_GET['password'];
@@ -40,7 +41,8 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($ap
     }
 });
 
-$app->get('/portal/students/presention/:user/:pass', function ($user, $pass) use($app) {
+$app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
+   $app = \Slim\Slim::getInstance();
     
     if (isset($_GET['username']) && isset($_GET['password'])) {
       $pass = $_GET['password'];
@@ -93,10 +95,6 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
 		$app->halt(500, $schedule->response->message);
 	}
 	createResponse($schedule->response->data);
-});
-
-$app->get('/test'. function() {
-	echo 'this is a test!';
 });
 
 $app->run();
