@@ -6,7 +6,7 @@ include('classes/ganon.php');
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
 
-$jsonPretty = new classes\JsonPretty;
+$jsonPretty = new classes\JsonPretty\JsonPretty();
 
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
