@@ -1,13 +1,12 @@
 <?php
 require 'Slim/Slim.php';
 require 'classes/curl.php';
-require 'classes/JsonPretty';
 include('classes/ganon.php');
 
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
 
-$jsonPretty = new JsonPretty;
+$jsonPretty = new classes\JsonPretty;
 
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
@@ -16,7 +15,7 @@ function createResponse($data=array()) {
 		array_walk_recursive($array, array ($xml, 'addChild'));
 		print $xml->asXML();
 	} else {
-		print $jsonPretty::prettify($data);
+		print $jsonPretty->prettify($data);
 	}
 }
 
