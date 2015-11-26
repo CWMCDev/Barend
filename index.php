@@ -7,6 +7,8 @@ include('classes/ganon.php');
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
 
+$jsonPretty = new JsonPretty;
+
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
 		$array = array('data'=>$data);
@@ -14,7 +16,7 @@ function createResponse($data=array()) {
 		array_walk_recursive($array, array ($xml, 'addChild'));
 		print $xml->asXML();
 	} else {
-		print \JsonPretty::prettify($data);
+		print $jsonPretty::prettify($data);
 	}
 }
 
