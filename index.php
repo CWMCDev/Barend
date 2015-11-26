@@ -13,8 +13,7 @@ function createResponse($data=array()) {
 		array_walk_recursive($array, array ($xml, 'addChild'));
 		print $xml->asXML();
 	} else {
-		$json = json_decode($data);
-		print json_encode($json, JSON_PRETTY_PRINT);
+		print json_encode($data, 128);
 	}
 }
 
