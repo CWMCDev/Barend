@@ -95,8 +95,8 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
 	}
 
     $scheduleData = $schedule->response->data;
-    $scheduleData.sort(function(a, b) {
-                return a['start'] - b['start'];
+    $scheduleData.sort(function($a, $b) {
+                return $a['start'] < $b['start'];
             });
 
 	createResponse(scheduleData);
