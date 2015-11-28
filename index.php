@@ -103,5 +103,9 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
     createResponse(scheduleData);
 });
 
+$app->get('/test', function() use($app) {
+	$app->halt(403, "This endpoint is just for debugging");
+});
+
 $app->run();
 ?>
