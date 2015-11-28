@@ -36,9 +36,11 @@ class Portal {
 		$table = $html('table tbody tr');
     
     $i = 0;
-    foreach($html('table tbody tr td.vak span') as $vak) {
-			$classes[$i] = array('line'=>$i, 'title'=>$vak->title, 'text'=>$vak->getPlainText(), 'grades'=>array());
-			$i++;
+    foreach($table as $subjectRow) {
+      foreach($subjectRow('td.vak span') as $vak){
+		    $classes[$i] = array('line'=>$i, 'title'=>$vak->title, 'text'=>$vak->getPlainText(), 'grades'=>array());
+		    $i++;
+      }
 		}
     
     $gi = 0;
