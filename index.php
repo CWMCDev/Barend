@@ -96,7 +96,7 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
 
     $scheduleData = $schedule->response->data;
 
-    createResponse(scheduleData);
+    createResponse($scheduleData);
 });
 
 $app->get('/test', function() use($app) {
