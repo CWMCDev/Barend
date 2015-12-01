@@ -95,10 +95,6 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
 	}
 
     $scheduleData = $schedule->response->data;
-    
-    usort($scheduleData, function($a, $b) {
-    	return strcmp($a['start'], $b['start']);
-    });
 
     createResponse(scheduleData);
 });
