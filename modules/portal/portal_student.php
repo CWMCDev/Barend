@@ -87,15 +87,15 @@ class Portal {
       
       $allClasses = array(' ', ' last-of-week', 'melding-only ', 'aanw ', 'afw ', 'geoorlafw ', 'melding-only last-of-week', 'aanw last-of-week', 'afw last-of-week', 'geoorlafw last-of-week');
       
-      $i = 0;
+      $i = 1;
       $dag = 0;
       foreach($tr('td') as $uur) {
       	if(in_array($uur->class, $allClasses)) {
-      		$uren[$i] = array('uur'=>($i+1), 'status'=>str_replace("last-of-week","",$uur->class));
+      		$uren[$i-1] = array('uur'=>($i), 'status'=>str_replace("last-of-week","",$uur->class));
         	
-       		if ($i == 9) {
+       		if ($i == 10) {
        			$dagen[$dagenNamen[$dag]] = $uren;
-          		$i = 0;
+          		$i = 1;
           		$dag++;
         	}
         	$i++;		
