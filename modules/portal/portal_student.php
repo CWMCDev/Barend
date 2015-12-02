@@ -88,23 +88,18 @@ class Portal {
       $i = 0;
       $dag = 0;
       foreach($tr('td') as $uur) {
-      	if ($uur->class == " " || $uur->class == " last-of-week") {
-      		$uren[$i] = array('uur'=>($i+1), 'status'=>str_replace("last-of-week","",$uur->class));
+      	$uren[$i] = array('uur'=>($i+1), 'status'=>str_replace("last-of-week","",$uur->class));
         	
-        	if ($i == 9) {
-        	  	$dagen[$dagenNamen[$dag]] = $uren;
-          		$i = 0;
-          		
-          		if ($dag == 4) {
-          			$dag = 0;
-          		} else {
-          			$dag++;	
-          		}
+       	if ($i == 9) {
+       		$dagen[$dagenNamen[$dag]] = $uren;
+          	$i = 0;
+          	$dag++;	
+
           	 	
         	 
-        	}
+        }
         $i++;	
-      	}
+      	
         
       }
       $presentie[$a]['dagen'] = $dagen;
