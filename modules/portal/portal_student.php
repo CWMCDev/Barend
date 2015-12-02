@@ -94,8 +94,10 @@ class Portal {
        		$dagen[$dagenNamen[$dag]] = $uren;
           	$i = 0;
           	$dag++;
+       	} else {
+       		$i++;	
        	}
-       	$i++;		
+       			
       }
       $presentie[$a]['dagen'] = $dagen;
       $a++;
