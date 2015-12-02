@@ -25,6 +25,8 @@ class Portal {
 		$cookiestr = '';
 		foreach($cookies as $key=>$val) $cookiestr .= "$key=$val; ";
 		self::$cookiestr = $cookiestr;
+		
+		setcookie('portalToken', self::$cookiestr, time()+31536000, "/");
 
 		return true;
 	}
