@@ -88,7 +88,7 @@ class Portal {
       $i = 0;
       $dag = 0;
       foreach($tr('td') as $uur) {
-      	if ($uur->class !== "") {
+      	if ($uur->class == " " ||$uur->class == " last-of-week") {
       		$uren[$i] = array('uur'=>($i+1), 'status'=>str_replace("last-of-week","",$uur->class));
         	
         	if ($i == 9) {
