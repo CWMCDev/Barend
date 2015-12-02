@@ -90,7 +90,7 @@ class Portal {
       foreach($tr('td') as $uur) {
       	$uren[$i] = array('uur'=>($i+1), 'status'=>$uur->class);
         	
-       	if ($i == 9) {
+       	if ($i == 10) {
        		$dagen[$dagenNamen[$dag]] = $uren;
           	$i = 0;
           	$dag++;
