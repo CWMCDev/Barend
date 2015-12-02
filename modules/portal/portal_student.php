@@ -74,7 +74,7 @@ class Portal {
     $html = str_get_dom($page);
     $table = $html('table.wp3-presentie-table tbody tr');
     
-    $a = 0;
+    $a = 1;
     foreach($table as $tr) {
       $week = $tr('th', 0)->getPlainText();
       $presentie[$a] = array('week'=>$week, 'dagen'=>array());
@@ -87,11 +87,11 @@ class Portal {
       
       $allClasses = array(' ', ' last-of-week', 'melding-only ', 'aanw ', 'afw ', 'geoorlafw ', 'melding-only last-of-week', 'aanw last-of-week', 'afw last-of-week', 'geoorlafw last-of-week');
       
-      $i = 1;
+      $i = 0;
       $dag = 0;
       foreach($tr('td') as $uur) {
       	if(in_array($uur->class, $allClasses)) {
-      		$uren[$i-1] = array('uur'=>($i), 'status'=>str_replace("last-of-week","",$uur->class));
+      		$uren[$i] = array('uur'=>($i+1), 'status'=>str_replace("last-of-week","",$uur->class));
         	
        		if ($i == 10) {
        			$dagen[$dagenNamen[$dag]] = $uren;
