@@ -9,13 +9,20 @@ function createResponse($data=array()) {
 		$array = array('data'=>$data);
 		$xml = new SimpleXMLElement('<response/>');
 		array_walk_recursive($array, array ($xml, 'addChild'));
-		print $xml->asXML();
+		echo $xml->asXML();
 	} else {
-		print json_encode($data, JSON_PRETTY_PRINT);
+		if(isset($_GET['callback'])) {
+			echo $_GET['callback'].'(';
+		}	
+		echo json_encode($data, JSON_PRETTY_PRINT);
+		if(isset($_GET['callback'])) {
+			echo ')';
+		}
 	}
 }
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+
 $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
     $app = \Slim\Slim::getInstance();
     
@@ -24,7 +31,7 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
       $user = $_GET['username'];
     }
     
-    if($user == '' || $pass == '') {
+    if(empty($user) || empty($pass)) {
      $app->halt(401, 'Please set username and password first');
     }
     
@@ -43,7 +50,7 @@ $app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
       $user = $_GET['username'];
     }
     
-    if($user == '' || $pass == '') {
+    if(empty($user) || empty($pass)) {
      $app->halt(401, 'Please set username and password first');
     }
     
@@ -70,17 +77,19 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
 	$token = '';
 	if(isset($_GET['token'])) $token = $_GET['token'];
 	elseif(isset($_COOKIE['ztoken'])) $token = $_COOKIE['ztoken'];
-	if($token == '') {
+	if(empty($token)) {
 		$app->halt(401, 'Please set the token first');
 	}
-	if($week == 0) 
+	if($week == 0) {
 		$week = date('W');
+	}
 	$zportal = new Zportal();
 	$zportal->setToken($token);
 	$schedule = $zportal->getSchedule($week);
 	if($schedule->response->status != 200) {
-		if($schedule->response->status == 401)
+		if($schedule->response->status == 401) {
 			$app->halt(401, 'The token is incorrect');
+		}
 		$app->halt(500, $schedule->response->message);
 	}
     $scheduleData = $schedule->response->data;
@@ -91,8 +100,12 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
     usort($scheduleData, "cmp");
     createResponse($scheduleData);
 });
+
+
 $app->get('/test', function() use($app) {
 	$app->halt(403, "This endpoint is just for debugging");
 });
+
+
 $app->run();
 ?>
