@@ -57,7 +57,7 @@ $app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
     if($portal->login($user, $pass)) {
     	createResponse($portal->getPresention());
     } else {
-    	app->halt(401, 'Incorrect username or password')
+    	$app->halt(401, 'Incorrect username or password')
     }
     
     
