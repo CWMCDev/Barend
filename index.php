@@ -20,20 +20,7 @@ function createResponse($data=array()) {
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->get('/login/:user/:pass', function function ($user, $pass) {
-    if (isset($_GET['username']) && isset($_GET['password'])) {
-      $pass = $_GET['password'];
-      $user = $_GET['username'];
-    }
-    
-    if($user == '' || $pass == '') {
-      $app->halt(401, 'Please set username and password first');
-    }	
-    
-    $portal->login($user, $pass);
-});
-
-$app->get('/portal/students/grades', function ($user, $pass) {
+$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
     $app = \Slim\Slim::getInstance();
     
     if (isset($_GET['username']) && isset($_GET['password'])) {
@@ -53,14 +40,27 @@ $app->get('/portal/students/grades', function ($user, $pass) {
     }
 });
 
-$app->get('/portal/students/presention', function ($user, $pass) {
+$app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
    $app = \Slim\Slim::getInstance();
-    $cookie = '';
-    if(isset($_GET['portalToken'])) $cookie = $_GET['portalToken'] else app->halt(401, 'Please logni first');
+    
+    if (isset($_GET['username']) && isset($_GET['password'])) {
+      $pass = $_GET['password'];
+      $user = $_GET['username'];
+    }
+    
+    if($user == '' || $pass == '') {
+      $app->halt(401, 'Please set username and password first');
+    }	
     
     $portal = new Portal();
-    $portal->$cookiestr = $cookie;
-    createResponse($portal->getPresention());
+    
+    if($portal->login($user, $pass)) {
+    	createResponse($portal->getPresention());
+    } else {
+    	app->halt(401, 'Incorrect username or password')
+    }
+    
+    
 });
 
 $app->get('/zportal/settoken/:key', function($key) use($app) {
