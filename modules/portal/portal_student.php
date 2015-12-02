@@ -91,7 +91,7 @@ class Portal {
       	
       	$class = str_replace("last-of-week","",$uur->class);
       	
-      	if ($class == 'melding-only ' || $class == 'geoorlafw') {
+      	if ($class == 'melding-only ' || $class == 'geoorlafw ') {
       		$uren[$i] = array('uur'=>($i+1), 'status'=>$class, 'reden'=>$uur->getPlainText());
       	} else {
       		$uren[$i] = array('uur'=>($i+1), 'status'=>$class);
