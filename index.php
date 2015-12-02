@@ -1,7 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require 'Slim/Slim.php';
 require 'classes/curl.php';
-include('classes/ganon.php');
+require 'classes/ganon.php';
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
 function createResponse($data=array()) {
