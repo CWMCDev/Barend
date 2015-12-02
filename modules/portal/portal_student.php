@@ -85,7 +85,7 @@ class Portal {
     
       $uren = array();
       
-      $allClasses = array('last-of-week', 'melding-only ', 'aanw ', 'afw ', 'geoorlafw ', 'melding-only last-of-week', 'aanw last-of-week', 'afw last-of-week', 'geoorlafw last-of-week');
+      $allClasses = array(' last-of-week', 'melding-only ', 'aanw ', 'afw ', 'geoorlafw ', 'melding-only last-of-week', 'aanw last-of-week', 'afw last-of-week', 'geoorlafw last-of-week');
       
       $i = 0;
       $dag = 0;
