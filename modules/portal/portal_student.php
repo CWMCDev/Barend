@@ -90,6 +90,7 @@ class Portal {
       foreach($tr('td') as $uur) {
       	
       	$class = str_replace("last-of-week","",$uur->class);
+      	$class = str_replace(" ","",$class);
       	
       	if ($class == 'melding-only ' || $class == 'geoorlafw ') {
       		$uren[$i] = array('uur'=>($i+1), 'status'=>$class, 'reden'=>$uur->getPlainText());
