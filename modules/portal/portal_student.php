@@ -90,7 +90,7 @@ class Portal {
       foreach($tr('td') as $uur) {
       	$uren[$i] = array('uur'=>($i+1), 'status'=>str_replace("last-of-week","",$uur->class));
         	
-        echo $uur->class;
+        echo $uur->class . '<br>';
         	
        	if ($i == 9) {
        		$dagen[$dagenNamen[$dag]] = $uren;
