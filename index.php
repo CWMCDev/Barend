@@ -23,42 +23,42 @@ function createResponse($data=array()) {
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) {
-    $app = \Slim\Slim::getInstance();
-    
+$app->get('/', function() use($app) {
+	echo json_encode(['No endpoint']);
+});
+
+$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
     if (isset($_GET['username']) && isset($_GET['password'])) {
       $pass = $_GET['password'];
       $user = $_GET['username'];
     }
     
     if(empty($user) || empty($pass)) {
-     $app->halt(401, 'Please set username and password first');
+     $app->halt(401, json_encode(['error' => 'Please set username and password first']);
     }
     
     $portal = new Portal();
     if($portal->login($user, $pass)) {
     	createResponse($portal->getGrades(1));
     } else {
-    	$app->halt(401, 'Wrong Password or Username!');
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']);
     }
 });
-$app->get('/portal/students/presention/:user/:pass', function ($user, $pass) {
-   $app = \Slim\Slim::getInstance();
-    
+$app->get('/portal/students/presention/:user/:pass', function ($user, $pass) use($app) {
     if (isset($_GET['username']) && isset($_GET['password'])) {
       $pass = $_GET['password'];
       $user = $_GET['username'];
     }
     
     if(empty($user) || empty($pass)) {
-     $app->halt(401, 'Please set username and password first');
+     $app->halt(401, json_encode(['error' => 'Please set username and password first']);
     }
     
     $portal = new Portal();
     if($portal->login($user, $pass)) {
     	createResponse($portal->getPresention());
     } else {
-    	$app->halt(401, 'Wrong Password or Username!');
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']);
     }
 });
 $app->get('/zportal/settoken/:key', function($key) use($app) {
@@ -70,15 +70,14 @@ $app->get('/zportal/settoken/:key', function($key) use($app) {
 			'token' => $zportal->token
 		]);
 	} else {
-		$app->halt(403, json_encode(['error'=>'Deze code is niet correct']));
+		$app->halt(403, json_encode(['error'=>'The used code is invalid']));
 	}
 });
 $app->get('/zportal/schedule/:week', function($week) use($app) {
 	$token = '';
 	if(isset($_GET['token'])) $token = $_GET['token'];
-	elseif(isset($_COOKIE['ztoken'])) $token = $_COOKIE['ztoken'];
 	if(empty($token)) {
-		$app->halt(401, 'Please set the token first');
+		$app->halt(401, json_encode(['error' => 'Please set the token first']);
 	}
 	if($week == 0) {
 		$week = date('W');
@@ -88,9 +87,9 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
 	$schedule = $zportal->getSchedule($week);
 	if($schedule->response->status != 200) {
 		if($schedule->response->status == 401) {
-			$app->halt(401, 'The token is incorrect');
+			$app->halt(401, json_encode(['error' => 'The token is incorrect']);
 		}
-		$app->halt(500, $schedule->response->message);
+		$app->halt(500, json_encode(['error' => $schedule->response->message]);
 	}
     $scheduleData = $schedule->response->data;
     
@@ -103,7 +102,7 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
 
 
 $app->get('/test', function() use($app) {
-	$app->halt(403, "This endpoint is just for debugging");
+	$app->halt(403, json_encode(['message' => "This endpoint is just for debugging"]);
 });
 
 
