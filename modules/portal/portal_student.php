@@ -74,7 +74,7 @@ class Portal {
     $html = str_get_dom($page);
     $table = $html('table.wp3-presentie-table tbody tr');
     
-    $a = 1;
+    $a = 0;
     foreach($table as $tr) {
       $week = $tr('th', 0)->getPlainText();
       $presentie[$a] = array('week'=>$week, 'dagen'=>array());
