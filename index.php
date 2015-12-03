@@ -26,14 +26,6 @@ function createResponse($data=array()) {
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->get('/:method', function($method) use($app) {
-	echo json_encode(['error' => 'Invalid endpoint']);
-});
-
-$app->get('/', function() use($app) {
-  echo json_encode(['error' => 'Invalid endpoint']);
-});
-
 $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
     if (isset($_GET['username']) && isset($_GET['password'])) {
       $pass = $_GET['password'];
