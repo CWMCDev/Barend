@@ -93,7 +93,7 @@ class Portal {
       	$class = str_replace(" ","",$class);
       	
       	if ($class == 'melding-only' || $class == 'geoorlafw') {
-      		$uren[$i] = array('uur'=>($i+1), 'status'=>$class, 'reden'=>$uur->getPlainText());
+      		$uren[$i] = array('uur'=>($i+1), 'status'=>$class, 'reden'=>$uur->getPlainText(), 'title'=>$uur->title);
       	} else {
       		$uren[$i] = array('uur'=>($i+1), 'status'=>$class);
       	}
