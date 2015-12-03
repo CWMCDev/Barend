@@ -27,7 +27,7 @@ function createResponse($data=array()) {
 $app = new \Slim\Slim();
 
 $app->get('/', function() use($app) {
-	echo json_encode(['No endpoint']);
+	echo json_encode(['error' => 'Invalid endpoint']);
 });
 
 $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
