@@ -87,15 +87,15 @@ class Portal {
       
       $i = 0;
       $dag = 0;
-      foreach($tr('td') as $uur) {
+      foreach($tr('td') as $hour) {
       	
-      	$class = str_replace("last-of-week","",$uur->class);
+      	$class = str_replace("last-of-week","",$hour->class);
       	$class = str_replace(" ","",$class);
       	
       	if ($class == 'melding-only' || $class == 'geoorlafw') {
-      		$uren[$i] = array('uur'=>($i+1), 'status'=>$class, 'reden'=>$uur->getPlainText(), 'title'=>$uur->title);
+      		$uren[$i] = array('hour'=>($i+1), 'status'=>$class, 'reason'=>$hour->getPlainText(), 'title'=>$hour->title);
       	} else {
-      		$uren[$i] = array('uur'=>($i+1), 'status'=>$class);
+      		$uren[$i] = array('hour'=>($i+1), 'status'=>$class);
       	}
       	
         	
