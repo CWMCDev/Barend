@@ -26,8 +26,12 @@ function createResponse($data=array()) {
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->get('/', function() use($app) {
+$app->get('/:method', function($method) use($app) {
 	echo json_encode(['error' => 'Invalid endpoint']);
+});
+
+$app->get('/', function() use($app) {
+  echo json_encode(['error' => 'Invalid endpoint']);
 });
 
 $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
@@ -101,12 +105,6 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
     usort($scheduleData, "cmp");
     createResponse($scheduleData);
 });
-
-
-$app->get('/test', function() use($app) {
-	$app->halt(403, json_encode(['message' => "This endpoint is just for debugging"]));
-});
-
 
 $app->run();
 ?>
