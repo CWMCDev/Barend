@@ -68,7 +68,6 @@ $app->get('/zportal/settoken/:key', function($key) use($app) {
 	$zportal = new Zportal();
 	$zportal->setAppKey($key);
 	if($zportal->getToken()) {
-		setcookie('ztoken', $zportal->token, time()+31536000, "/");
 		createResponse([
 			'token' => $zportal->token
 		]);
