@@ -49,9 +49,17 @@ class Portal {
       $sp = 0;
       $parsedArray = $tr('td div div span a');
 
-      foreach ($parsedArray as $span) {
+      foreach ($parsedArray as $decodedInformation) {
         $gradesInformation = array();
-        $gradesInformation['grade'] = $span->getPlainText();
+
+        $gradesDom = str_get_dom(htmlspecialchars_decode($decodedInformation->getAttribute('rel')));
+
+        foreach ($gradesDom('div table tr') as $informationRow) {
+          error_log($informationRow);
+          $informationData = $informationRow('td');
+          $gradesInformation[$informationData[0]->getPlainText()] = $informationData[2]->getPlainText();
+        }
+
         $tds[$sp] = $gradesInformation;
         $sp++;
       }
