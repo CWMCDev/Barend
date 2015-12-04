@@ -135,6 +135,7 @@ return $return;
 }
 
 public static function getPresention() {
+  curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=807', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6));
   return array(
     'presentie'=>self::parsePresention(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=807', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)))
     );
