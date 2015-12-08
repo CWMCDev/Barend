@@ -11,10 +11,15 @@ class integrate {
       $day = $timeParser::getTime($lesson->start);
       
       $resetLesson = array();
-      
-      foreach($lesson as $item => $value) {
-        $resetLesson[] = $item=>$value;
-      }
+    
+      $resetLesson[] = 'dayOfWeek'=>$day;
+      $resetLesson[] = 'dayOfWeek'=>$day;
+      $resetLesson[] = 'dayOfWeek'=>$day;
+      $resetLesson[] = 'dayOfWeek'=>$day;
+      $resetLesson[] = 'dayOfWeek'=>$day;
+      $resetLesson[] = 'dayOfWeek'=>$day;
+      $resetLesson[] = 'dayOfWeek'=>$day;
+      $resetLesson[] = 'dayOfWeek'=>$day;
       $resetLesson[] = 'dayOfWeek'=>$day;
       
       foreach($presention as $weekPresention) {
