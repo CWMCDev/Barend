@@ -8,6 +8,7 @@ require 'classes/ganon.php';
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
 require 'modules/utilities/parseTime.php';
+require 'modules/utilities/integrate.php';
 
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
@@ -46,15 +47,6 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($ap
     }
 });
 $app->get('/portal/students/presention/:user/:pass', function ($user, $pass) use($app) {
-    if (isset($_GET['username']) && isset($_GET['password'])) {
-      $pass = $_GET['password'];
-      $user = $_GET['username'];
-    }
-    
-    if(empty($user) || empty($pass)) {
-     $app->halt(401, json_encode(['error' => 'Please set username and password first']));
-    }
-    
     $portal = new Portal();
     if($portal->login($user, $pass)) {
     	createResponse($portal->getPresention());
@@ -73,7 +65,7 @@ $app->get('/zportal/settoken/:key', function($key) use($app) {
 		$app->halt(403, json_encode(['error'=>'The used code is invalid']));
 	}
 });
-$app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
+$app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, $user, $pass) use($app) {
 	if($week == 0) {
 		$week = date('W');
 	}
@@ -93,16 +85,17 @@ $app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
     }
     usort($scheduleData, "cmp");
     
-    $newSchedule = array();
-    $timeParser = new parseTime();
-    foreach($scheduleData as $lesson) {
-      $day = $timeParser::getTime($lesson->start);
-      
-      $lesson->start=>$lesson->start.":".$day;
-      
-      $newSchedule[] = $lesson;
+    $presention = null;
+    $portal = new Portal();
+    if($portal->login($user, $pass)) {
+    	$presention = $portal->getPresention();
+    } else {
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
     }
-    createResponse($newSchedule);
+    
+    $integrater = new integrate();
+    
+    createResponse($integrater::addPresention($presention, $scheduleData, $week));
 });
 
 
