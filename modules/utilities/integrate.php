@@ -13,7 +13,7 @@ class integrate {
       $resetLesson = array();
       
       foreach($lesson as $item => $value) {
-        $resetLesson[] = $item=> $value;
+        $resetLesson[] = $item=>$value;
       }
       $resetLesson[] = 'dayOfWeek'=>$day;
       
