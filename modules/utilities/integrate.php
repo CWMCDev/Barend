@@ -19,7 +19,6 @@ class integrate {
             
             $dayPresention = $weekPresention["dagen"][$day];
             $Status = $dayPresention[(string)($lesson->startTimeSlot- 1)];
-            }
             
           }
         }
