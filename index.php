@@ -94,8 +94,8 @@ $app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, 
     }
     
     $integrater = new integrate();
-    createResponse($scheduleData);
-    //createResponse($integrater::addPresention($presention, $scheduleData, $week));
+    //createResponse($scheduleData);
+    createResponse($integrater::addPresention($presention, $scheduleData, $week));
 });
 
 
