@@ -4,19 +4,19 @@ class parseTime {
     $day = date('l', 1448869500);
     switch($day){
       case "Monday": 
-        echo 'Maandag';
+        return 'Maandag';
         break;
       case "Tuesday": 
-        echo 'Dinsdag';
+        return 'Dinsdag';
         break;
       case "Wednesday": 
-        echo 'Woensdag';
+        return 'Woensdag';
         break;
       case "Thursday": 
-        echo 'Donderdag';
+        return 'Donderdag';
         break;
       case "Friday": 
-        echo 'Vrijdag';
+        return 'Vrijdag';
         break;
     }
   } 
