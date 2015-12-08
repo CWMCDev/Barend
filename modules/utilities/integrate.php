@@ -10,28 +10,19 @@ class integrate {
     foreach($schedule as $lesson) {
       $day = $timeParser::getTime($lesson->start);
       
-      $resetLesson = array();
-    
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
-      $resetLesson[] = 'dayOfWeek'=>$day;
+
       
       foreach($presention as $weekPresention) {
         if ($weekPresention->week == $week) {
           $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
           
-          $Status = $dayPresention[$lesson->startTimeSlot]->status;
-          $resetLesson[] = 'status'=>$Status;
+          $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
         }
       }
       
-      $newSchedule[] = $lesson;
+      $resetLesson = array();
+      
+      $newSchedule[] = $resetLesson;
     }
     
     return $newSchedule;
