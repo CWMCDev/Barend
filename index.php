@@ -101,7 +101,8 @@ $app->get('/test', function() use($app) {
 });
 
 $app->get('/testTime', function() use($app) {
-	parseTime::getTime();	
+	$test = new parseTime();
+	$test::getTime();	
 });
 
 
