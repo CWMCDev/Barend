@@ -11,13 +11,13 @@ class integrate {
       $day = "Maandag";//$timeParser::getTime($lesson->start);
       $Status = "";
 
-      
       foreach($presention as $weekPresention) {
-        //if ($weekPresention->week == $week) {
-        //  $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
-        //  
-         // $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
-        //}
+        return $weekPresention;
+       /*/if ($weekPresention->week == $week) {
+          $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
+          
+         $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
+        }*/
       }
       
       $resetLesson = array("id"=>$lesson->id, "start"=>$lesson->start, "end"=>$lesson->end, "subjects"=>$lesson->subjects, 
