@@ -92,19 +92,26 @@ $app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
     	return strcmp($a->start, $b->start);
     }
     usort($scheduleData, "cmp");
-    createResponse($scheduleData);
+    
+    $schedule = array();
+    $timeParser = new parseTime();
+    foreach($scheduleData as $lesson) {
+      $day = $timeParser::getTime($lesson->start);
+    
+      $lesson.push({
+        key:   "keyName",
+        value: "the value"
+      });
+      
+      $schedule[] = $lesson;
+    }
+    createResponse($schedule);
 });
 
 
 $app->get('/test', function() use($app) {
 	$app->halt(403, json_encode(['error' => "This endpoint is just for debugging"]));
 });
-
-$app->get('/testTime', function() use($app) {
-	$test = new parseTime();
-	$test::getTime();	
-});
-
 
 $app->run();
 ?>
