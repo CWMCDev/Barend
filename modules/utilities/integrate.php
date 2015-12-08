@@ -2,6 +2,8 @@
 class integrate {
    
   static function addPresention($schedule, $presention, $week) {
+    
+    return $presention;
     $newSchedule = array();
     $timeParser = new parseTime();
     
