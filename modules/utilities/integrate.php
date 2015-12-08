@@ -15,8 +15,10 @@ class integrate {
         foreach ($presentie as $weekPresention) {
           if ($weekPresention["week"] == $week) {
             
-            $dayPresention = $weekPresention["dagen"]->$day;
-            $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
+            foreach ($weekPresention["dagen"] as $dayPresention) {
+              $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
+            }
+            
           }
         }
       }
