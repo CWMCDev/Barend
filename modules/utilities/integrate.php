@@ -10,15 +10,13 @@ class integrate {
     foreach($schedule as $lesson) {
       $day = $timeParser::getTime($lesson->start);
       $Status = "";
-
-      $presention = $presention->presentie;
       
-      foreach($presention as $weekPresention) {
-        if ($weekPresention->week == $week) {
-        
-        $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
-          
-        $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
+      foreach($presention as $presentie) {
+        foreach ($presentie as $weekPresention) {
+          if ($weekPresention->week == $week) {
+            $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
+            $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
+          }
         }
       }
       
