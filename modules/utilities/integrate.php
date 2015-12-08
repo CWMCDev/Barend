@@ -14,6 +14,7 @@ class integrate {
       
       foreach($presention as $presentie) {
         foreach ($presentie as $weekPresention) {
+          print_r($weekPresention);
           if ($weekPresention["week"] == $week) {
             
             foreach ($weekPresention["dagen"] as $dayPresention) {
