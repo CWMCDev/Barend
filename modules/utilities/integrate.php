@@ -13,7 +13,7 @@ class integrate {
 
       
       foreach($presention as $weekPresention) {
-        return $weekPresention;
+        $newSchedule[] = $weekPresention;
         //if ($weekPresention->week == $week) {
         //  $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
         //  
@@ -26,7 +26,7 @@ class integrate {
       "remark"=>$lesson->remark, "valid"=>$lesson->valid, "cancelled"=>$lesson->cancelled, "modified"=>$lesson->modified, 
       "moved"=>$lesson->moved, "changeDescription"=>$lesson->changeDescription, "startTimeSlot"=>$lesson->startTimeSlot, "endTimeSlot"=>$lesson->endTimeSlot, "branch"=>$lesson->branch, "branchOfSchool"=>$lesson->branchOfSchool, "created"=>$lesson->created, "lastModified"=>$lesson->lastModified, "hidden"=>$lesson->hidden, "appointmentInstance"=>$lesson->appointmentInstance, "new"=>$lesson->new, "dayOfWeek"=>$day, "status"=>$Status);
       
-      $newSchedule[] = $resetLesson;
+      //$newSchedule[] = $resetLesson;
     }
     
     return $newSchedule;
