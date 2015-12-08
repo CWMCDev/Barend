@@ -18,7 +18,7 @@ class integrate {
           if ($weekPresention["week"] == $week) {
             
             foreach ($weekPresention["dagen"] as $dayPresention) {
-               print_r($dayPresention);
+               print_r($dayPresention[(string)($lesson->startTimeSlot- 1)]);
               $Status = $dayPresention[(string)($lesson->startTimeSlot- 1)];
             }
             
