@@ -99,8 +99,8 @@ $app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
       $day = $timeParser::getTime($lesson->start);
     
       $lesson.push({
-        key:   "keyName",
-        value: "the value"
+        key:   "day",
+        value: $day
       });
       
       $schedule[] = $lesson;
