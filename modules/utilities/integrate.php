@@ -13,7 +13,7 @@ class integrate {
 
       
       foreach($presention as $weekPresention) {
-        echo $weekPresention;
+        return $weekPresention;
         //if ($weekPresention->week == $week) {
         //  $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
         //  
