@@ -8,7 +8,7 @@ class integrate {
     $dagenNamen = array('Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag');
     
     foreach($schedule as $lesson) {
-      $day = "Maandag"//$timeParser::getTime($lesson->start);
+      $day = "Maandag";//$timeParser::getTime($lesson->start);
       $Status = "";
 
       
