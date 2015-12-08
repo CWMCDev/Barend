@@ -84,7 +84,6 @@ $app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, 
     	return strcmp($a->start, $b->start);
     }
     usort($scheduleData, "cmp");
-<<<<<<< HEAD
     
     $presention = null;
     $portal = new Portal();
@@ -97,9 +96,6 @@ $app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, 
     $integrater = new integrate();
     
     createResponse($integrater::addPresention($presention, $scheduleData, $week));
-=======
-    createResponse($scheduleData);
->>>>>>> c781cdbe7f721f9d40367cecc21f7b10ba5a80dc
 });
 
 
