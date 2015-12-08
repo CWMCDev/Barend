@@ -1,7 +1,7 @@
 <?php
 class parseTime {
-   static function getTime() {
-    $day = date('l', 1448869500);
+   static function getTime($unixTime) {
+    $day = date('l', $unixTime);
     switch($day){
       case "Monday": 
         return 'Maandag';
