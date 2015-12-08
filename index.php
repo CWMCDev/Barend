@@ -98,6 +98,8 @@ $app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
     foreach($scheduleData as $lesson) {
       $day = $timeParser::getTime($lesson->start);
       
+      $lesson->start=>$lesson->start.":".$day;
+      
       $newSchedule[] = $lesson;
     }
     createResponse($newSchedule);
