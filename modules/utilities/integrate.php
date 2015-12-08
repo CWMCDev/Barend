@@ -11,8 +11,7 @@ class integrate {
       $day = $timeParser::getTime($lesson->start);
       $Status = "";
 
-      foreach($presention as $weekPresention) {
-        return $presention;
+      foreach($presention->presentie as $weekPresention) {
         if ($weekPresention->week == $week) {
         
         $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
