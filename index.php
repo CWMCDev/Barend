@@ -7,6 +7,8 @@ require 'classes/curl.php';
 require 'classes/ganon.php';
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
+require 'modules/utilities/parseTime.php';
+
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
 		$array = array('data'=>$data);
@@ -96,6 +98,10 @@ $app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
 
 $app->get('/test', function() use($app) {
 	$app->halt(403, json_encode(['error' => "This endpoint is just for debugging"]));
+});
+
+$app->get('/testTime', function() use($app) {
+	parseTime::getTime();	
 });
 
 
