@@ -8,16 +8,15 @@ class integrate {
     $dagenNamen = array('Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag');
     
     foreach($schedule as $lesson) {
-      $day = "Maandag";//$timeParser::getTime($lesson->start);
+      $day = $timeParser::getTime($lesson->start);
       $Status = "";
 
       foreach($presention as $weekPresention) {
-        return $weekPresention;
-       /*/if ($weekPresention->week == $week) {
-          $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
+        if ($weekPresention->week == $week) {
+        $dayPresention = $weekPresention->dagen[$dagenNamen[$day]];
           
-         $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
-        }*/
+        $Status = $dayPresention[$lesson->startTimeSlot-1]->status;
+        }
       }
       
       $resetLesson = array("id"=>$lesson->id, "start"=>$lesson->start, "end"=>$lesson->end, "subjects"=>$lesson->subjects, 
