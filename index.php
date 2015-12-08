@@ -93,7 +93,7 @@ $app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
     }
     usort($scheduleData, "cmp");
     
-    $schedule = array();
+    $newSchedule = array();
     $timeParser = new parseTime();
     foreach($scheduleData as $lesson) {
       $day = $timeParser::getTime($lesson->start);
@@ -103,9 +103,9 @@ $app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
         value: $day
       });
       
-      $schedule[] = $lesson;
+      $newSchedule[] = $lesson;
     }
-    createResponse($schedule);
+    createResponse($newSchedule);
 });
 
 
