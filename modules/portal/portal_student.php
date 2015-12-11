@@ -147,7 +147,8 @@ public static function parseClassList($page) {
   
   $return = array();
   foreach ($persons as $person) {
-    $return[] = array("name"=>$person->getPlainText());
+    utf8_decode ( string $data )
+    $return[] = array("name"=>utf8_decode($person->getPlainText()));
   }
   
   return $return;
