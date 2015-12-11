@@ -147,7 +147,7 @@ public static function parseClassList($page) {
   
   $return = array();
   foreach ($persons as $person) {
-    $return[] = array("name"=>json_decode('"'. $person->getPlainText().'"'));
+    $return[] = array("name"=>unicode_decode($person->getPlainText()));
   }
   
   return $return;
