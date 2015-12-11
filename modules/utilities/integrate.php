@@ -23,13 +23,10 @@ class integrate {
           }
         }
       }
+      $lesson["dayOfWeek"] = $day;
+      $lesson["status"] = $Status;
       
-      $resetLesson = array("id"=>$lesson->id, "start"=>$lesson->start, "end"=>$lesson->end, "subjects"=>$lesson->subjects, 
-      "teachers"=>$lesson->teachers, "groups"=>$lesson->groups, "locations"=>$lesson->locations, "type"=>$lesson->type, 
-      "remark"=>$lesson->remark, "valid"=>$lesson->valid, "cancelled"=>$lesson->cancelled, "modified"=>$lesson->modified, 
-      "moved"=>$lesson->moved, "changeDescription"=>$lesson->changeDescription, "startTimeSlot"=>$lesson->startTimeSlot, "endTimeSlot"=>$lesson->endTimeSlot, "branch"=>$lesson->branch, "branchOfSchool"=>$lesson->branchOfSchool, "created"=>$lesson->created, "lastModified"=>$lesson->lastModified, "hidden"=>$lesson->hidden, "appointmentInstance"=>$lesson->appointmentInstance, "new"=>$lesson->new, "dayOfWeek"=>$day, "status"=>$Status);
-      
-      $newSchedule[] = $resetLesson;
+      $newSchedule[] = $lesson;
     }
     
     return $newSchedule;
