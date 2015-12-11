@@ -141,5 +141,19 @@ public static function getPresention() {
     );
 }
 
+public static function parseClassList($page) {
+  $html = str_get_dom($page);
+  $persons = $html('div.wp3-profile-person div')->getPlainText();
+  
+  return $persons;
+}
+
+public static function getClassList() {
+  curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6));
+  return array(
+    'classList'=>self::parseClassList(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)))
+  );
+}
+
 }
 ?>
