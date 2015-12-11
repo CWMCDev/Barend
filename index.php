@@ -46,6 +46,14 @@ $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($ap
     	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
     }
 });
+$app->get('/portal/students/classlist/:user/:pass', function ($user, $pass) use($app) {
+    $portal = new Portal();
+    if($portal->login($user, $pass)) {
+    	createResponse($portal->getClassList());
+    } else {
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+    }
+});
 $app->get('/portal/students/presention/:user/:pass', function ($user, $pass) use($app) {
     $portal = new Portal();
     if($portal->login($user, $pass)) {
