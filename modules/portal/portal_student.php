@@ -160,8 +160,8 @@ public static function getClassList() {
   $countString = $html('strong')[0]->getPlainText();
   echo $countString;
   $countArray = explode(" ", $countString);
-  $maxStudentCount = floatval($countArray[5]);
-  $studentPerPage = floatval($countArray[3]);
+  $maxStudentCount = floatval($countArray[4]);
+  $studentPerPage = floatval($countArray[2]);
   echo $pageCount = $maxStudentCount / $studentPerPage;
   $page1 = self::parseClassList(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)));
   
