@@ -159,6 +159,10 @@ public static function getClassList() {
   $html = str_get_dom(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)));
   $countString = $html('strong')[0]->getPlainText();
   echo $countString;
+  $countArray = explode(" ", $countString);
+  echo "/n";
+  echo $countArray[0];
+  echo $countArray[2];
   $page1 = self::parseClassList(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)));
   
   //second page
