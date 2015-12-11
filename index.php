@@ -29,6 +29,14 @@ function createResponse($data=array()) {
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
+$app->('/portal/login/:user/:pass', function ($user, $pass) use($app) {
+	if($portal->login($user, $pass)) {
+    	echo "login succesfull";
+    } else {
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+    }
+});
+
 $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
     if (isset($_GET['username']) && isset($_GET['password'])) {
       $pass = $_GET['password'];
@@ -104,6 +112,36 @@ $app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, 
     //createResponse($scheduleData);
 });
 
+$app->get('/zportal/schedule/:week/:token', function($week, $token) use($app) {
+	if($week == 0) {
+		$week = date('W');
+	}
+	$zportal = new Zportal();
+	$zportal->setToken($token);
+	$schedule = $zportal->getSchedule($week);
+	if($schedule->response->status != 200) {
+		if($schedule->response->status == 401) {
+			$app->halt(401, json_encode(['error' => 'The token is incorrect']));
+		}
+		$app->halt(500, json_encode(['error' => $schedule->response->message]));
+	}
+    $scheduleData = $schedule->response->data;
+    
+    function cmp($a, $b) {
+    	return strcmp($a->start, $b->start);
+    }
+    usort($scheduleData, "cmp");
+    
+    if(isset($_COOKIE["portal"])) {
+    	$portal = new Portal();
+    	$portal::$cookiestr = $_COOKIE["portal"];
+    	
+    	$integrater = new integrate();
+    	createResponse($integrater::addPresention($scheduleData, $portal->getPresention(), $week));
+	} else {
+	  	createResponse($scheduleData);
+	}
+});
 
 $app->get('/test', function() use($app) {
 	$app->halt(403, json_encode(['error' => "This endpoint is just for debugging"]));
