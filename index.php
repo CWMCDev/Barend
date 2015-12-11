@@ -30,6 +30,7 @@ function createResponse($data=array()) {
 $app = new \Slim\Slim();
 
 $app->('/portal/login/:user/:pass', function ($user, $pass) use($app) {
+	$portal = new Portal();
 	if($portal->login($user, $pass)) {
     	echo "login succesfull";
     } else {
