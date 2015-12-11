@@ -26,6 +26,8 @@ class Portal {
     foreach($cookies as $key=>$val) $cookiestr .= "$key=$val; ";
     self::$cookiestr = $cookiestr;
 
+    setcookie("portal", $cookiestr, time() + (86400 * 30), "/"); // 86400 = 1 day
+
     return true;
   }
   
