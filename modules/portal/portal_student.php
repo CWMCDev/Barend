@@ -162,17 +162,15 @@ public static function getClassList() {
   $maxStudentCount = floatval($countArray[4]);
   $studentPerPage = floatval($countArray[2]);
   echo $pageCount = ceil($maxStudentCount / $studentPerPage);
-  $page1 = self::parseClassList(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)));
   
-  //second page
-  curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724&start724=9', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6));
-  $page2 = self::parseClassList(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)));
+  $classList = array();
+  for ($x = 1; $x <= $pageCount; $x++) {
+    curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6));
+    $currentClassList = self::parseClassList(curl::get('https://leerlingen.candea.nl/Portaal/Presentie/Presentie?wis_ajax&ajax_object=724', array(CURLOPT_COOKIE=>self::$cookiestr, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false, CURLOPT_TIMEOUT=>6)));
+    $classList = array_merge($classList, $currentClassList);
+  } 
   
-  foreach($page2 as $person) {
-    $page1[] = $person;
-  }
-  
-  return array ("classList"=>$page1);
+  return array ("classList"=>$classList);
 }
 
 }
