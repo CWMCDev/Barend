@@ -10,7 +10,7 @@ class integrate {
     
     foreach($schedule as $lesson) {
       $day = $timeParser::getTime($lesson->start);
-      $Status = "";
+      $status = "";
       
       foreach($presention as $presentie) {
         foreach ($presentie as $weekPresention) {
@@ -18,13 +18,13 @@ class integrate {
           if ($weekPresention["week"] == $week) {
             
             $dayPresention = $weekPresention["dagen"][$day];
-            $Status = $dayPresention[(string)($lesson->startTimeSlot- 1)]["status"];
+            $status = $dayPresention[(string)($lesson->startTimeSlot- 1)]["status"];
             
           }
         }
       }
       $lesson["dayOfWeek"] = $day;
-      $lesson["status"] = $Status;
+      $lesson["status"] = $status;
       
       $newSchedule[] = $lesson;
     }
