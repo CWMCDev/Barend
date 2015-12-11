@@ -147,10 +147,10 @@ public static function parseClassList($page) {
   
   $return = array();
   foreach ($persons as $person) {
-    echo $person->getPlainText();
+    $return[] = array("name"=>$person->getPlainText());
   }
   
-  return $persons;
+  return $return;
 }
 
 public static function getClassList() {
