@@ -7,7 +7,7 @@ require 'classes/curl.php';
 require 'classes/ganon.php';
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
-require 'modules/utilities/parseTime.php';
+require 'modules/utilities/parser.php';
 require 'modules/utilities/integrate.php';
 
 function createResponse($data=array()) {
