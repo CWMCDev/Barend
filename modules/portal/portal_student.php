@@ -143,11 +143,11 @@ public static function getPresention() {
 
 public static function parseClassList($page) {
   $html = str_get_dom($page);
-  $persons = $html('ul li div.wp3-profile-person div');
-  
+  $persons = $html('ul li');
+  // div.wp3-profile-person div
   $return = array();
   foreach ($persons as $person) {
-    $return[] = array("name"=>unicode_decode($person->getPlainText()));
+    $return[] = array("name"=>$person('div.wp3-profile-person div')->getPlainText(), "id"=>str_replace($person('div.wp3-profile-pic div')->id));
   }
   
   return $return;
