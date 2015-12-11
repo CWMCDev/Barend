@@ -147,8 +147,8 @@ public static function parseClassList($page) {
   // div.wp3-profile-person div
   $return = array();
   foreach ($persons as $person) {
-    $name = $person('div.wp3-profile-person div');
-    $id = $person('div.wp3-profile-pic div');
+    $name = $person('div.wp3-profile-person div')[0];
+    $id = $person('div.wp3-profile-pic div')[0];
     $return[] = array("name"=>$name->getPlainText(), "id"=>str_replace("pasfoto_","",$id->id));
   }
   
