@@ -31,6 +31,10 @@ class Portal {
     return true;
   }
   
+  public static function setCookiestr($cookie) {
+    self::$cookiestr = $cookie;
+  }
+  
   public static function parseGrades($page){
     $classes = array();
     
