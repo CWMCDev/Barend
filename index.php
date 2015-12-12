@@ -89,7 +89,7 @@ $app->get('/zportal/settoken/:key', function($key) use($app) {
 	}
 });
 
-$app->get('/zportal/schedule/:week', function() use($app) {
+$app->get('/zportal/schedule/:week', function($week) use($app) {
 	if($week == 0) {
 		$week = date('W');
 	}
