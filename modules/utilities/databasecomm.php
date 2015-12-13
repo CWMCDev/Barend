@@ -27,10 +27,11 @@
 		$db->doSQL("SELECT * FROM `Users` WHERE `userID` = '$username'");
 
 		$result = $db->getRecord();
-		if(empty($result))
-				return false;
-			else
-				return true;
+		if(mysql_num_rows($result) == 0){
+			return false;
+		} else {
+			return true;
+		}
 
 		$db->closeConnection();
 	}
