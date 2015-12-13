@@ -61,12 +61,12 @@
 		return mysqli_fetch_array($result)['hash'];
 	}
 
-	function insertToken($username, $token){
+	function insertToken($username, $token, $description){
 		$db = new Database();
 
 		$username = $db->link->real_escape_string($username);
 
-		$db->doSQL("INSERT INTO `Token`(`userID`,`token`) VALUES ('$username','$token')");
+		$db->doSQL("INSERT INTO `Token`(`userID`,`token`, `description`) VALUES ('$username','$token','$description')");
 
 		$result = $db->getRecord();
 		if(empty($result))

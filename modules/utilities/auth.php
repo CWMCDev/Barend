@@ -71,7 +71,7 @@
         updateHash($username, $hash);
     }
 
-    function registerToken($username, $password){
+    function requestToken($username, $password, $description = null){
         if(loginPortal($username, $password)) {
             if(!getUser($username)){
                 registerUser($username, $password);
@@ -79,7 +79,7 @@
 
             $token = generateToken(256);
 
-            if(insertToken($username, $token)) {
+            if(insertToken($username, $token, $description)) {
                 return $token;
             } else {
                 return false;
