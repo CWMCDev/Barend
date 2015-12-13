@@ -31,8 +31,7 @@
     }
 
     function loginPortal($user='', $password='') {
-        return true;
-    /*if (substr($user,0,2) !== 'cc'){
+    if (substr($user,0,2) !== 'cc'){
       $user = "cc" . $user;
       error_log($user . " , " . substr($user,0,2) );
     }
@@ -44,10 +43,12 @@
      );
 
     $curl = curl::post('https://leerlingen.candea.nl/Login?passAction=login&path=%2F', $logindata, array(CURLOPT_HEADER=>1, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false));
-    if(strpos($curl, 'Inloggegevens onjuist') != 0) return false;
+    if(strpos($curl, 'Inloggegevens onjuist') != 0){
+        echo "False Login";
+        return false;
+    }
 
     return true;
-    */
   }
 
     function registerUser($username, $password){
@@ -57,12 +58,14 @@
     }
 
     function getPassword($username, $token){
-        //CHECK TOKEN
-
-        global $salt;
-        $hash = getHash($username);
-        $password = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($salt), base64_decode($hash), MCRYPT_MODE_CBC, md5(md5($salt))), "\0");
-        echo $password;
+        if(getTokenValid($username, $token)){
+            global $salt;
+            $hash = getHash($username);
+            $password = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($salt), base64_decode($hash), MCRYPT_MODE_CBC, md5(md5($salt))), "\0");
+            return $password;
+        } else {
+            return false;
+        }
     }
 
     function updatePassword($username, $password){
@@ -89,5 +92,4 @@
             return false;
         }
     }
-
 ?>

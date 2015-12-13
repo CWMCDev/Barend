@@ -27,8 +27,7 @@
 		$db->doSQL("SELECT * FROM `Users` WHERE `userID` = '$username'");
 
 		$result = $db->getRecord();
-
-		if(empty($result)){
+		if(mysqli_num_rows($result) == 0){
 			return false;
 		} else {
 			return true;
@@ -87,7 +86,7 @@
 		$db->doSQL("SELECT * FROM `Token` WHERE `userID` = '$username' AND `token` = '$token'");
 
 		$result = $db->getRecord();
-		if(empty($result)){
+		if(mysqli_num_rows($result) == 0){
 			return false;
 		} else {
 			return true;
