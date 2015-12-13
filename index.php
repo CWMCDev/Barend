@@ -105,6 +105,9 @@ $app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, 
 });
 
 $app->get('/test', function() use($app) {
+  $password = "fuckinghellditisteringlangenmoeilijk";
+  $salt = "Difficult";
+  error_log(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($salt), $password, MCRYPT_MODE_CBC, md5(md5($salt)))));
 	$app->halt(403, json_encode(['error' => "This endpoint is just for debugging"]));
 });
 
