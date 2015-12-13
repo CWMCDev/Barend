@@ -9,7 +9,7 @@ require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
 require 'modules/utilities/parser.php';
 require 'modules/utilities/integrate.php';
-require 'modules/utilities/auth.php'
+require 'modules/utilities/auth.php';
 
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
@@ -29,6 +29,27 @@ function createResponse($data=array()) {
 }
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+
+$app->get('/auth/register/:user/:pass', function ($user, $pass) use($app) {
+    if (substr($user,0,2) !== 'cc'){
+      $user = "cc" . $user;
+      error_log($user . " , " . substr($user,0,2) );
+    }
+
+    if(empty($user) || empty($pass)) {
+     $app->halt(401, json_encode(['error' => 'Please set username and password first']));
+    }
+
+    $token = requestToken($user, $pass, "Debug");
+
+    if($token != false){
+      $response = array();
+      $response["token"] = $token;
+      createResponse($response);
+    } else {
+      $app->halt(401, json_encode(['error' => 'Invalid username or password']));
+    }
+});
 
 $app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
     if (isset($_GET['username']) && isset($_GET['password'])) {
@@ -106,9 +127,6 @@ $app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, 
 });
 
 $app->get('/test', function() use($app) {
-  $password = "fuckinghellditisteringlangenmoeilijk";
-  $salt = "Difficult";
-  error_log(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($salt), $password, MCRYPT_MODE_CBC, md5(md5($salt)))));
 	$app->halt(403, json_encode(['error' => "This endpoint is just for debugging"]));
 });
 

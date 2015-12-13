@@ -1,6 +1,5 @@
 <?php
     require 'databasecomm.php';
-    require '../../classes/curl.php';
 
     $salt = "sVnf80XWaM87JU58hmshi0P43fW0ZPqvkNMcG8hb8GhEpa0IkcXQ5mjdblud6QAPw8dxIDlZzHE6zPbVqdwgnokIjYsxwHsSvpwN";
 
@@ -43,7 +42,7 @@
      );
 
     $curl = curl::post('https://leerlingen.candea.nl/Login?passAction=login&path=%2F', $logindata, array(CURLOPT_HEADER=>1, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false));
-    if(strpos($curl, 'Inloggegevens onjuist') != 0){
+    if(strpos($curl, 'Inloggegevens onjuist') != 0 || strpos($curl, 'U heeft geen rechten') != 0){
         echo "False Login";
         return false;
     }
