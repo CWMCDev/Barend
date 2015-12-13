@@ -1,5 +1,8 @@
 <?php
-    include_once("database.php");
+    require("databasecomm.php");
+    require '../../classes/curl.php';
+
+    $salt = "sVnf80XWaM87JU58hmshi0P43fW0ZPqvkNMcG8hb8GhEpa0IkcXQ5mjdblud6QAPw8dxIDlZzHE6zPbVqdwgnokIjYsxwHsSvpwN";
 
     function crypto_rand_secure($min, $max){
        $range = $max - $min;
@@ -26,4 +29,65 @@
        }
        return $token;
     }
+
+    function loginPortal($user='', $password='') {
+        return true;
+    /*if (substr($user,0,2) !== 'cc'){
+      $user = "cc" . $user;
+      error_log($user . " , " . substr($user,0,2) );
+    }
+
+    $logindata = array(
+     'wu_loginname' => urlencode($user),
+     'wu_password' => urlencode($password),
+     'Login' => urlencode('Inloggen'),
+     );
+
+    $curl = curl::post('https://leerlingen.candea.nl/Login?passAction=login&path=%2F', $logindata, array(CURLOPT_HEADER=>1, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false));
+    if(strpos($curl, 'Inloggegevens onjuist') != 0) return false;
+
+    return true;
+    */
+  }
+
+    function registerUser($username, $password){
+        global $salt;
+        $hash = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($salt), $password, MCRYPT_MODE_CBC, md5(md5($salt))));
+        insertUser($username, $hash);
+    }
+
+    function getPassword($username, $token){
+        //CHECK TOKEN
+
+        global $salt;
+        $hash = getHash($username);
+        $password = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($salt), base64_decode($hash), MCRYPT_MODE_CBC, md5(md5($salt))), "\0");
+        echo $password;
+    }
+
+    function updatePassword($username, $password){
+        global $salt;
+        $hash = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($salt), $password, MCRYPT_MODE_CBC, md5(md5($salt))));
+        updateHash($username, $hash);
+    }
+
+    function registerToken($username, $password){
+        if(loginPortal($username, $password)) {
+            if(!getUser($username)){
+                registerUser($username, $password);
+            }
+
+            $token = generateToken(256);
+
+            if(insertToken($username, $token)) {
+                return $token;
+            } else {
+                return false;
+            }
+        } else {
+            // Incorrect login
+            return false;
+        }
+    }
+
 ?>

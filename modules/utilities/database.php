@@ -9,10 +9,6 @@ class Database{
 	public $link;
 	private $result;
 
-	private $location = "localhost";
-	private $login = "Barend";
-	private $password = "abc123";
-
 	/*
 	 * Constructor.
 	 * Automatically connects to a mysql server specified in config.inc.php and a database.
@@ -21,7 +17,7 @@ class Database{
 	 */
 	public function Database(){
 		//$link = mysql_connect($location, $login, $passsword)
-		$this->link = new mysqli($location, $login, $password, $dbName);
+		$this->link = new mysqli("localhost", "Barend", "abc123", "barend");
 		if ($this->link->connect_errno != 0) {
 				die("Can't connect to server...");
 		}
@@ -35,7 +31,7 @@ class Database{
 	public function doSQL($query){
 		$this->result = $this->link->query($query);
 		//echo "$query \n";
-		//print_r($this->link->error_list);
+		print_r($this->link->error_list);
 	}
 	
 	/*
