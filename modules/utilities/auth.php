@@ -1,5 +1,5 @@
 <?php
-    require("databasecomm.php");
+    require 'databasecomm.php';
     require '../../classes/curl.php';
 
     $salt = "sVnf80XWaM87JU58hmshi0P43fW0ZPqvkNMcG8hb8GhEpa0IkcXQ5mjdblud6QAPw8dxIDlZzHE6zPbVqdwgnokIjYsxwHsSvpwN";

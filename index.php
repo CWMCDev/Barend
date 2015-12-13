@@ -9,6 +9,7 @@ require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
 require 'modules/utilities/parser.php';
 require 'modules/utilities/integrate.php';
+require 'modules/utilities/auth.php'
 
 function createResponse($data=array()) {
 	if(isset($_GET['format']) && $_GET['format'] == 'xml') {
