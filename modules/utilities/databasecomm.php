@@ -27,7 +27,8 @@
 		$db->doSQL("SELECT * FROM `Users` WHERE `userID` = '$username'");
 
 		$result = $db->getRecord();
-		if(mysql_num_rows($result) == 0){
+
+		if(empty($result)){
 			return false;
 		} else {
 			return true;
@@ -74,6 +75,23 @@
 				return false;
 			else
 				return true;
+
+		$db->closeConnection();
+	}
+
+	function getTokenValid($username, $token){
+		$db = new Database();
+
+		$username = $db->link->real_escape_string($username);
+
+		$db->doSQL("SELECT * FROM `Token` WHERE `userID` = '$username' AND `token` = '$token'");
+
+		$result = $db->getRecord();
+		if(empty($result)){
+			return false;
+		} else {
+			return true;
+		}
 
 		$db->closeConnection();
 	}

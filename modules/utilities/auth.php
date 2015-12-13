@@ -90,6 +90,4 @@
         }
     }
 
-    echo requestToken("cc112335", "AirbusA380", "Testing");
-
 ?>
