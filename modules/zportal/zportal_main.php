@@ -56,9 +56,9 @@ class Zportal {
 			'code'=>str_replace(' ', '',$this->key),
 			'expires_in'=>4356789246579
 		);
-    
 		$curl = curl::post($url, $data);
 		$json = json_decode($curl);
+
 
 		if(!$json) {
 			return false;
@@ -68,10 +68,6 @@ class Zportal {
 			return true;
 		}
 	}
-  public function setCookie($cookie) {
-    setcookie("zportal", $cookie, time() + (86400 * 30), "/"); // 86400 = 1 day
-  }
-  
 	public function setToken($token) {
 		$this->token = $token;
 	}

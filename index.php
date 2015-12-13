@@ -29,53 +29,39 @@ function createResponse($data=array()) {
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->get('/portal/students/login/:user/:pass', function ($user, $pass) use($app) {
+$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
+    if (isset($_GET['username']) && isset($_GET['password'])) {
+      $pass = $_GET['password'];
+      $user = $_GET['username'];
+    }
+    
+    if(empty($user) || empty($pass)) {
+     $app->halt(401, json_encode(['error' => 'Please set username and password first']));
+    }
+    
     $portal = new Portal();
     if($portal->login($user, $pass)) {
-    	echo "Login Succesfull";
+    	createResponse($portal->getGrades(1));
     } else {
     	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
     }
 });
-
-$app->get('/portal/students/logout', function () use($app) {
-     unset($_COOKIE['portal']);
-     setcookie('portal', '', time() - 3600, '/');
-     echo "Logout Succesfull";
-});
-
-$app->get('/portal/students/grades', function () use($app) {
+$app->get('/portal/students/classlist/:user/:pass', function ($user, $pass) use($app) {
     $portal = new Portal();
-    
-    if(!isset($_COOKIE["portal"])) {
-      $app->halt(401, json_encode(['error' => 'Please login first']));
+    if($portal->login($user, $pass)) {
+    	createResponse($portal->getClassList());
     } else {
-      $portal->setCookiestr($_COOKIE["portal"]);
-      createResponse($portal->getGrades(1));
-    } 
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+    }
 });
-
-$app->get('/portal/students/classlist', function () use($app) {
+$app->get('/portal/students/presention/:user/:pass', function ($user, $pass) use($app) {
     $portal = new Portal();
-    
-    if(!isset($_COOKIE["portal"])) {
-      $app->halt(401, json_encode(['error' => 'Please login first']));
+    if($portal->login($user, $pass)) {
+    	createResponse($portal->getPresention());
     } else {
-      $portal->setCookiestr($_COOKIE["portal"]);
-      createResponse($portal->getClassList());
-    } 
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+    }
 });
-$app->get('/portal/students/presention', function () use($app) {
-    $portal = new Portal();
-    
-    if(!isset($_COOKIE["portal"])) {
-      $app->halt(401, json_encode(['error' => 'Please login first']));
-    } else {
-      $portal->setCookiestr($_COOKIE["portal"]);
-      createResponse($portal->getPresention());
-    } 
-});
-
 $app->get('/zportal/settoken/:key', function($key) use($app) {
 	$zportal = new Zportal();
 	$zportal->setAppKey($key);
@@ -83,21 +69,16 @@ $app->get('/zportal/settoken/:key', function($key) use($app) {
 		createResponse([
 			'token' => $zportal->token
 		]);
-    $zportal->setCookie($zportal->token);
 	} else {
 		$app->halt(403, json_encode(['error'=>'The used code is invalid']));
 	}
 });
-
-$app->get('/zportal/schedule/:week', function($week) use($app) {
+$app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, $user, $pass) use($app) {
 	if($week == 0) {
 		$week = date('W');
 	}
-  if(!isset($_COOKIE["zportal"])) {
-    $app->halt(403, "Please set token first!");
-  }
 	$zportal = new Zportal();
-  $zportal->setToken($_COOKIE["zportal"]);
+	$zportal->setToken($token);
 	$schedule = $zportal->getSchedule($week);
 	if($schedule->response->status != 200) {
 		if($schedule->response->status == 401) {
@@ -112,15 +93,15 @@ $app->get('/zportal/schedule/:week', function($week) use($app) {
     }
     usort($scheduleData, "cmp");
     
-    if(!isset($_COOKIE["portal"])) {
-      createResponse($scheduleData);
-    } else {
-      $portal = new Portal();
-      $portal->setCookiestr($_COOKIE["portal"]);
-      
-      $integrater = new integrate();
+    $integrater = new integrate();
+    
+    $portal = new Portal();
+    if($portal->login($user, $pass)) {
       createResponse($integrater::addPresention($scheduleData, $portal->getPresention(), $week));
-    } 
+    } else {
+    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+    }
+    //createResponse($scheduleData);
 });
 
 $app->get('/test', function() use($app) {
