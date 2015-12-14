@@ -30,25 +30,42 @@
     }
 
     function loginPortal($user='', $password='') {
-    if (substr($user,0,2) !== 'cc'){
-      $user = "cc" . $user;
-      error_log($user . " , " . substr($user,0,2) );
+        if (substr($user,0,2) !== 'cc'){
+          $user = "cc" . $user;
+          error_log($user . " , " . substr($user,0,2) );
+        }
+
+        $logindata = array(
+         'wu_loginname' => urlencode($user),
+         'wu_password' => urlencode($password),
+         'Login' => urlencode('Inloggen'),
+         );
+
+        $curl = curl::post('https://leerlingen.candea.nl/Login?passAction=login&path=%2F', $logindata, array(CURLOPT_HEADER=>1, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false));
+        if(strpos($curl, 'Inloggegevens onjuist') != 0 || strpos($curl, 'U heeft geen rechten') != 0){
+            return false;
+        }
+
+        return true;
     }
 
-    $logindata = array(
-     'wu_loginname' => urlencode($user),
-     'wu_password' => urlencode($password),
-     'Login' => urlencode('Inloggen'),
-     );
+    function checkAuth($username, $token){
+        if(empty($token)){
+            return ['error' => 'Empty Token'];
+        }
 
-    $curl = curl::post('https://leerlingen.candea.nl/Login?passAction=login&path=%2F', $logindata, array(CURLOPT_HEADER=>1, CURLOPT_FOLLOWLOCATION=>1, CURLOPT_SSL_VERIFYPEER=>false));
-    if(strpos($curl, 'Inloggegevens onjuist') != 0 || strpos($curl, 'U heeft geen rechten') != 0){
-        echo "False Login";
-        return false;
+        $password = getPassword($username, $token);
+
+        if($password == false){
+            return ['error' => 'Invalid Token'];
+        }
+
+        if(loginPortal($username, $password)) {
+            return true;
+        }else{
+            return ['error' => 'Invalid Password'];
+        }
     }
-
-    return true;
-  }
 
     function registerUser($username, $password){
         global $salt;

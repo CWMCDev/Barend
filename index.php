@@ -51,38 +51,44 @@ $app->get('/auth/register/:user/:pass', function ($user, $pass) use($app) {
     }
 });
 
-$app->get('/portal/students/grades/:user/:pass', function ($user, $pass) use($app) {
-    if (isset($_GET['username']) && isset($_GET['password'])) {
-      $pass = $_GET['password'];
-      $user = $_GET['username'];
-    }
-    
-    if(empty($user) || empty($pass)) {
-     $app->halt(401, json_encode(['error' => 'Please set username and password first']));
-    }
-    
-    $portal = new Portal();
-    if($portal->login($user, $pass)) {
-    	createResponse($portal->getGrades(1));
-    } else {
-    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+$app->post('/portal/students/grades/:user', function ($user) use($app) {
+    $token = $app->request->params('token');
+    $authStatus = checkAuth($user, $token);
+    if($authStatus === true){
+      $password = getPassword($user, $token);
+      $portal = new Portal();
+      if($portal->login($user, $password)){
+        createResponse($portal->getGrades(1));
+      }
+    }else{
+      $app->halt(401, json_encode($authStatus));
     }
 });
-$app->get('/portal/students/classlist/:user/:pass', function ($user, $pass) use($app) {
+$app->post('/portal/students/classlist/:user', function ($user) use($app) {
+  $token = $app->request->params('token');
+  $authStatus = checkAuth($user, $token);
+  if($authStatus === true){
+    $password = getPassword($user, $token);
     $portal = new Portal();
-    if($portal->login($user, $pass)) {
-    	createResponse($portal->getClassList());
-    } else {
-    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+    if($portal->login($user, $password)){
+      createResponse($portal->getClassList());
     }
+  }else{
+    $app->halt(401, json_encode($authStatus));
+  }
 });
-$app->get('/portal/students/presention/:user/:pass', function ($user, $pass) use($app) {
+$app->post('/portal/students/presention/:user', function ($user) use($app) {
+  $token = $app->request->params('token');
+  $authStatus = checkAuth($user, $token);
+  if($authStatus === true){
+    $password = getPassword($user, $token);
     $portal = new Portal();
-    if($portal->login($user, $pass)) {
-    	createResponse($portal->getPresention());
-    } else {
-    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+    if($portal->login($user, $password)){
+      createResponse($portal->getPresention());
     }
+  }else{
+    $app->halt(401, json_encode($authStatus));
+  }
 });
 $app->get('/zportal/settoken/:key', function($key) use($app) {
 	$zportal = new Zportal();
