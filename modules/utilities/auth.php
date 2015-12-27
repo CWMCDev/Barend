@@ -53,7 +53,6 @@
         if(empty($token)){
             return ['error' => 'Empty Token'];
         }
-
         $password = getPassword($username, $token);
 
         if($password == false){

@@ -51,8 +51,7 @@ $app->get('/auth/register/:user/:pass', function ($user, $pass) use($app) {
     }
 });
 
-$app->post('/portal/students/grades/:user', function ($user) use($app) {
-    $token = $app->request->params('token');
+$app->get('/portal/students/grades/:user/:token', function ($user, $token) use($app) {
     $authStatus = checkAuth($user, $token);
     if($authStatus === true){
       $password = getPassword($user, $token);
@@ -64,8 +63,7 @@ $app->post('/portal/students/grades/:user', function ($user) use($app) {
       $app->halt(401, json_encode($authStatus));
     }
 });
-$app->post('/portal/students/classlist/:user', function ($user) use($app) {
-  $token = $app->request->params('token');
+$app->get('/portal/students/classlist/:user/:token', function ($user, $token) use($app) {
   $authStatus = checkAuth($user, $token);
   if($authStatus === true){
     $password = getPassword($user, $token);
@@ -77,8 +75,7 @@ $app->post('/portal/students/classlist/:user', function ($user) use($app) {
     $app->halt(401, json_encode($authStatus));
   }
 });
-$app->post('/portal/students/presention/:user', function ($user) use($app) {
-  $token = $app->request->params('token');
+$app->get('/portal/students/presention/:user/:token', function ($user, $token) use($app) {
   $authStatus = checkAuth($user, $token);
   if($authStatus === true){
     $password = getPassword($user, $token);

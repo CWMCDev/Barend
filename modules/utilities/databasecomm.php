@@ -80,7 +80,6 @@
 
 	function getTokenValid($username, $token){
 		$db = new Database();
-
 		$username = $db->link->real_escape_string($username);
 
 		$db->doSQL("SELECT * FROM `Token` WHERE `userID` = '$username' AND `token` = '$token'");
