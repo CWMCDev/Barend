@@ -16,8 +16,9 @@ class Database{
 	 * @param $db: (String) Name of the database
 	 */
 	public function Database(){
+		include(__DIR__ . "/config.inc.php");
 		//$link = mysql_connect($location, $login, $passsword)
-		$this->link = new mysqli("localhost", "Barend", "abc123", "barend");
+		$this->link = new mysqli($location, $login, $password, $dbName);
 		if ($this->link->connect_errno != 0) {
 				die("Can't connect to server...");
 		}
