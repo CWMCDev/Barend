@@ -18,8 +18,6 @@ class Database{
 	public function Database(){
 		include("config.inc.php");
 		//$link = mysql_connect($location, $login, $passsword)
-		echo("HI");
-		echo($password);
 		$this->link = new mysqli($location, $login, $password, $dbName);
 		if ($this->link->connect_errno != 0) {
 				die("Can't connect to server...");
