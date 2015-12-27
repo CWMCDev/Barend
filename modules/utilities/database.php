@@ -16,7 +16,7 @@ class Database{
 	 * @param $db: (String) Name of the database
 	 */
 	public function Database(){
-		include("/config.inc.php");
+		include("config.inc.php");
 		//$link = mysql_connect($location, $login, $passsword)
 		echo("HI");
 		echo($passsword);
