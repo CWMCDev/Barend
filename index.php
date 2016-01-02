@@ -51,13 +51,25 @@ $app->get('/auth/register/:user/:pass', function ($user, $pass) use($app) {
     }
 });
 
-$app->get('/portal/students/grades/:user/:token', function ($user, $token) use($app) {
+$app->get('/portal/students/profile/:user/:token', function ($user, $token) use($app) {
     $authStatus = checkAuth($user, $token);
     if($authStatus === true){
       $password = getPassword($user, $token);
       $portal = new Portal();
       if($portal->login($user, $password)){
-        createResponse($portal->getGrades(1));
+        createResponse($portal->getProfile());
+      }
+    }else{
+      $app->halt(401, json_encode($authStatus));
+    }
+});
+$app->get('/portal/students/grades/:period/:user/:token', function ($period, $user, $token) use($app) {
+    $authStatus = checkAuth($user, $token);
+    if($authStatus === true){
+      $password = getPassword($user, $token);
+      $portal = new Portal();
+      if($portal->login($user, $password)){
+        createResponse($portal->getGrades($period));
       }
     }else{
       $app->halt(401, json_encode($authStatus));
