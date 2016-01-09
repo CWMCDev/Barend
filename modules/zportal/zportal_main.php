@@ -109,6 +109,7 @@ class Zportal {
       $type = 'groups';
     } else if ($type == 'subject') {
       $type = 'subjects';
+    }
     
     if ($id == 'me') {
       $id == '~me';
@@ -121,3 +122,4 @@ class Zportal {
 	}
 
 }
+?>
