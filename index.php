@@ -112,7 +112,7 @@ $app->get('/zportal/settoken/:key', function($key) use($app) {
 		$app->halt(403, json_encode(['error'=>'The used code is invalid']));
 	}
 });
-$app->get('/zportal/schedule/:type/:id/:week/token', function($type, $id, $week, $token) use($app) {
+$app->get('/zportal/schedule/:type/:id/:week/:token', function($type, $id, $week, $token) use($app) {
 	if($week == 0) {
 		$week = date('W');
 	}
