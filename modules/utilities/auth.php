@@ -1,8 +1,6 @@
 <?php
     require 'databasecomm.php';
-
-    $salt = "sVnf80XWaM87JU58hmshi0P43fW0ZPqvkNMcG8hb8GhEpa0IkcXQ5mjdblud6QAPw8dxIDlZzHE6zPbVqdwgnokIjYsxwHsSvpwN";
-
+    
     function crypto_rand_secure($min, $max){
        $range = $max - $min;
     	if ($range < 1) return $min; // not so random...
@@ -56,7 +54,6 @@
         $password = getPassword($username, $token);
 
         if($password == false){
-            echo "False Password";
             return ['error' => 'Invalid Token'];
         }
 
