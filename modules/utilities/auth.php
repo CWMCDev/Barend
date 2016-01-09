@@ -1,6 +1,6 @@
 <?php
     require 'databasecomm.php';
-    
+
     function crypto_rand_secure($min, $max){
        $range = $max - $min;
     	if ($range < 1) return $min; // not so random...
@@ -54,14 +54,14 @@
         $password = getPassword($username, $token);
 
         if($password == false){
-            return ['error' => 'Invalid Token'];
+            if(!getUser($username)){
+                return ['error' => 'Invalid User'];
+            }else{
+                return ['error' => 'Invalid Token'];
+            }
         }
 
-        if(loginPortal($username, $password)) {
-            return true;
-        }else{
-            return ['error' => 'Invalid Password'];
-        }
+        return true;
     }
 
     function registerUser($username, $password){
