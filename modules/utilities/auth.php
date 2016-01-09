@@ -56,6 +56,7 @@
         $password = getPassword($username, $token);
 
         if($password == false){
+            echo "False Password"
             return ['error' => 'Invalid Token'];
         }
 
