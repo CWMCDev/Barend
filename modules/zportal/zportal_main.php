@@ -87,7 +87,7 @@ class Zportal {
 	 * @param  integer  End timestamp
 	 * @return array    The schedule data
 	 */
-	public function getSchedule($week = 0) {
+	public function getSchedule($week, $type, $id) {
 		$startend = '';
 		if($week != 0) {
 			if($week < date('W'))
@@ -98,7 +98,23 @@ class Zportal {
 			$startend = $this->getStartEnd($year, $week);
 			$startend = '&start='.$startend[0].'&end='.$startend[1];
 		}
-		$url = $this->base_url.'/appointments?user=~me&access_token='.$this->token.$startend;
+    
+    if ($type == 'student') {
+      $type = 'user';
+    } else if ($type == 'room') {
+      $type = 'locations';
+    } else if ($type == 'teacher') {
+      $type = 'teachers';
+    } else if ($type == 'class') {
+      $type = 'groups';
+    } else if ($type == 'subject') {
+      $type = 'subjects';
+    
+    if ($id == 'me') {
+      $id == '~me';
+    }
+    
+		$url = $this->base_url.'/appointments?'.$type.'='.$id.'&access_token='.$this->token.$startend;
 		$curl = curl::get($url);
 		$json = json_decode($curl);
 		return $json;

@@ -99,6 +99,8 @@ $app->get('/portal/students/presention/:user/:token', function ($user, $token) u
     $app->halt(401, json_encode($authStatus));
   }
 });
+
+// Zportal
 $app->get('/zportal/settoken/:key', function($key) use($app) {
 	$zportal = new Zportal();
 	$zportal->setAppKey($key);
@@ -110,7 +112,31 @@ $app->get('/zportal/settoken/:key', function($key) use($app) {
 		$app->halt(403, json_encode(['error'=>'The used code is invalid']));
 	}
 });
-$app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, $user, $pass) use($app) {
+$app->get('/zportal/schedule/:type/:id/:week/token', function($type, $id, $week, $token) use($app) {
+	if($week == 0) {
+		$week = date('W');
+	}
+	$zportal = new Zportal();
+	$zportal->setToken($token);
+	$schedule = $zportal->getSchedule($week, $type, $id);
+	if($schedule->response->status != 200) {
+		if($schedule->response->status == 401) {
+			$app->halt(401, json_encode(['error' => 'The token is incorrect']));
+		}
+		$app->halt(500, json_encode(['error' => $schedule->response->message]));
+	}
+    $scheduleData = $schedule->response->data;
+    
+    function cmp($a, $b) {
+    	return strcmp($a->start, $b->start);
+    }
+    usort($scheduleData, "cmp");
+    
+    createResponse($scheduleData);
+});
+$app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $token, $user, $userToken) use($app) {
+  
+  
 	if($week == 0) {
 		$week = date('W');
 	}
@@ -130,15 +156,21 @@ $app->get('/zportal/schedule/:week/:token/:user/:pass', function($week, $token, 
     }
     usort($scheduleData, "cmp");
     
-    $integrater = new integrate();
+    $authStatus = checkAuth($user, $userToken);
+    if($authStatus === true){
+      $password = getPassword($user, $userToken);
+      $integrater = new integrate();
     
-    $portal = new Portal();
-    if($portal->login($user, $pass)) {
-      createResponse($integrater::addPresention($scheduleData, $portal->getPresention(), $week));
-    } else {
-    	$app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+      $portal = new Portal();
+      if($portal->login($user, $pass)) {
+        createResponse($integrater::addPresention($scheduleData, $portal->getPresention(), $week));
+      } else {
+        $app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
+      }
+    }else{
+      $app->halt(401, json_encode($authStatus));
     }
-    //createResponse($scheduleData);
+    
 });
 
 $app->get('/test', function() use($app) {
