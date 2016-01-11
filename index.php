@@ -176,7 +176,7 @@ $app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $to
 
 $app->get('/itslearning/test/:username/:password', function($username, $password) use($app) {
 	$itslearning = new Itslearning();
-	$itslearning->login();
+	$itslearning->login($username, $password);
 });
 
 $app->get('/test', function() use($app) {
