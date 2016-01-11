@@ -11,7 +11,7 @@ class Itslearning {
      /**
         Get __VIEWSTATE & __EVENTVALIDATION
      */
-    $ch = curl_init($url);
+    $ch = curl_init(self::$url);
     curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiestr);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -34,7 +34,7 @@ class Itslearning {
     */
     $ch = curl_init();
   
-    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_URL, self::$url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
     curl_setopt($ch, CURLOPT_COOKIEJAR, $ckfile);
