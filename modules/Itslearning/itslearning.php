@@ -1,8 +1,8 @@
 <?php
 class Itslearning {
-  $url = "https://candea.itslearning.com/index.aspx";
-  $cookiestr = '';
-  $useragent = 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.2 (KHTML, like Gecko) Chrome/5.0.342.3 Safari/533.2';
+  public static $url = "https://candea.itslearning.com/index.aspx";
+  public static $cookiestr = '';
+  public static $useragent = 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.2 (KHTML, like Gecko) Chrome/5.0.342.3 Safari/533.2';
 
   public static function login($username, $password) {
 
@@ -15,7 +15,7 @@ class Itslearning {
     curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiestr);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+    curl_setopt($ch, CURLOPT_USERAGENT, self::$useragent);
   
     $html = curl_exec($ch);
   
