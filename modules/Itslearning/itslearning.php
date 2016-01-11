@@ -12,7 +12,7 @@ class Itslearning {
         Get __VIEWSTATE & __EVENTVALIDATION
      */
     $ch = curl_init(self::$url);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiestr);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, self::$cookiestr);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_USERAGENT, self::$useragent);
@@ -37,14 +37,14 @@ class Itslearning {
     curl_setopt($ch, CURLOPT_URL, self::$url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, $ckfile);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, $ckfile);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, self::$cookiestr);
+    curl_setopt($ch, CURLOPT_COOKIEFILE, self::$cookiestr);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_REFERER, $url);
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
     curl_setopt($ch, CURLOPT_STDERR, $f);
-    curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+    curl_setopt($ch, CURLOPT_USERAGENT, self::$useragent);
   
     // Collecting all POST fields
     $postfields = array();
