@@ -7,6 +7,7 @@ require 'classes/curl.php';
 require 'classes/ganon.php';
 require 'modules/portal/portal_student.php';
 require 'modules/zportal/zportal_main.php';
+require 'modules/Itslearning/itslearning.php';
 require 'modules/utilities/parser.php';
 require 'modules/utilities/integrate.php';
 require 'modules/utilities/auth.php';
@@ -171,6 +172,11 @@ $app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $to
       $app->halt(401, json_encode($authStatus));
     }
     
+});
+
+$app->get('/itslearning/test/:username/:password', function($username, $password) use($app) {
+	$itslearning = new Itslearning();
+	$itslearning->login();
 });
 
 $app->get('/test', function() use($app) {
