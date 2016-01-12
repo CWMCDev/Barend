@@ -41,7 +41,7 @@ class Itslearning {
     curl_setopt($ch, CURLOPT_COOKIEFILE, self::$cookiestr);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_REFERER, $url);
+    curl_setopt($ch, CURLOPT_REFERER, self::$url);
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
     curl_setopt($ch, CURLOPT_STDERR, $f);
     curl_setopt($ch, CURLOPT_USERAGENT, self::$useragent);
