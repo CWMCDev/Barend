@@ -61,34 +61,10 @@ class Itslearning {
     $ret = curl_exec($ch); // Get result after login page.
   
     print $ret;
-    
-    curl_close($ch);
-    
-    $ch = curl_init();
   
     curl_setopt($ch, CURLOPT_URL, self::$url.'/main.aspx?TextURL=Course%2fAllCourses.aspx&Item=l-menu-course');
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, self::$cookiestr);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, self::$cookiestr);
-    curl_setopt($ch, CURLOPT_HEADER, FALSE);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_REFERER, self::$url);
-    curl_setopt($ch, CURLOPT_VERBOSE, 1);
-    curl_setopt($ch, CURLOPT_STDERR, $f);
-    curl_setopt($ch, CURLOPT_USERAGENT, self::$useragent);
-  
-    // Collecting all POST fields
-    $postfields = array();
-    $postfields['__EVENTTARGET'] = "";
-    $postfields['__EVENTARGUMENT'] = "";
-    $postfields['__VIEWSTATE'] = $viewstate;
-    $postfields['__EVENTVALIDATION'] = $eventValidation;
-  
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
-    $test = curl_exec($ch); // Get result after login page.
-  
+    
+    $test = curl_exec($ch); // Get result after login page
     print $test;
     
     curl_close($ch);
