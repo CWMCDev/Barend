@@ -62,7 +62,7 @@ class Itslearning {
   
     print $ret;
   
-    curl_setopt($ch, CURLOPT_URL, self::$url.'/main.aspx?TextURL=Course%2fAllCourses.aspx&Item=l-menu-course');
+    curl_setopt($ch, CURLOPT_URL, self::$url.'/AllCourses.aspx');
     
     $test = curl_exec($ch); // Get result after login page
     print $test;
