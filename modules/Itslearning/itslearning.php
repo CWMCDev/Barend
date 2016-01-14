@@ -119,7 +119,7 @@ class Itslearning {
     */
   }
   
-  public static getSubjects($user, $password) {
+  public static function getSubjects($user, $password) {
     $ch = self::login($user, $password);
     
     curl_setopt($ch, CURLOPT_URL, $url.'/Course/AllCourses.aspx');
