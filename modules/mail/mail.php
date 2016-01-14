@@ -49,6 +49,7 @@ class Mail{
                 array_push($emailsData, $mail);
             }
         } 
+        $data['mails'] = $emailsData;
 
         /* close the connection */
         imap_close($inbox);
