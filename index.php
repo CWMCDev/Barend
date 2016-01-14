@@ -6,6 +6,7 @@ require 'Slim/Slim.php';
 require 'classes/curl.php';
 require 'classes/ganon.php';
 require 'modules/portal/portal_student.php';
+require 'modules/mail/mail.php';
 require 'modules/zportal/zportal_main.php';
 require 'modules/utilities/parser.php';
 require 'modules/utilities/integrate.php';
@@ -95,6 +96,17 @@ $app->get('/portal/students/presention/:user/:token', function ($user, $token) u
     if($portal->login($user, $password)){
       createResponse($portal->getPresention());
     }
+  }else{
+    $app->halt(401, json_encode($authStatus));
+  }
+});
+
+$app->get('/mail/:user/:token', function ($user, $token) use($app) {
+  $authStatus = checkAuth($user, $token);
+  if($authStatus === true){
+    $password = getPassword($user, $token);
+    $portal = new Mail();
+    createResponse($mail->getMail($user, $password));
   }else{
     $app->halt(401, json_encode($authStatus));
   }
