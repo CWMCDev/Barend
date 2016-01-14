@@ -8,6 +8,7 @@ require 'classes/ganon.php';
 require 'modules/portal/portal_student.php';
 require 'modules/mail/mail.php';
 require 'modules/zportal/zportal_main.php';
+require 'modules/Itslearning/itslearning.php';
 require 'modules/utilities/parser.php';
 require 'modules/utilities/integrate.php';
 require 'modules/utilities/auth.php';
@@ -154,7 +155,7 @@ $app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $to
 	}
 	$zportal = new Zportal();
 	$zportal->setToken($token);
-	$schedule = $zportal->getSchedule($week, 'student', 'me');
+	$schedule = $zportal->getSchedule($week, 'student', 'self');
 	if($schedule->response->status != 200) {
 		if($schedule->response->status == 401) {
 			$app->halt(401, json_encode(['error' => 'The token is incorrect']));
@@ -183,6 +184,18 @@ $app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $to
       $app->halt(401, json_encode($authStatus));
     }
     
+});
+
+
+// Itslearning
+$app->get('/itslearning/test/:username/:password', function($username, $password) use($app) {
+	$itslearning = new Itslearning();
+	$itslearning->login($username, $password);
+});
+
+$app->get('/itslearning/subjects/:username/:password', function($username, $password) use($app) {
+  $itslearning = new Itslearning();
+  createResponse($itslearning->getSubjects($username, $password));
 });
 
 $app->get('/test', function() use($app) {

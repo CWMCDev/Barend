@@ -111,7 +111,7 @@ class Zportal {
       $type = 'subjects';
     }
     
-    if ($id == 'me') {
+    if ($id == 'self') {
       $id == '~me';
     }
     
