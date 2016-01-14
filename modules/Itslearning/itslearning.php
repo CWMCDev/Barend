@@ -5,10 +5,6 @@ class Itslearning {
   $ckfile = tempnam("/tmp", "CURLCOOKIE");
   $useragent = 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.2 (KHTML, like Gecko) Chrome/5.0.342.3 Safari/533.2';
 
-  $username = 'cc111748';
-  $password = 'Sandra21266';
-  
-
     $f = fopen('log.txt', 'w'); // file to write request header for debug purpose
 
      /**
