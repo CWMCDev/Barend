@@ -12,20 +12,7 @@ class Mail{
         /* grab emails */
         $emails = imap_search($inbox,'ALL');
 
-        $count = 0;
-        if (!$inbox) {
-            echo "Error";
-        } else {
-            $headers = imap_headers($inbox);
-            foreach ($headers as $mail) {
-                $flags = substr($mail, 0, 4);
-                $isunr = (strpos($flags, "U") !== false);
-                if ($isunr)
-                    $count++;
-            }
-        }
-
-        $data['unread'] = $count;
+        $unreadCount = 0;
         $emailsData = array();
 
         /* if emails are returned, cycle through each... */
@@ -41,14 +28,21 @@ class Mail{
                 $overview = imap_fetch_overview($inbox,$email_number,0);
                 $message = imap_fetchbody($inbox,$email_number,2);
 
+                $read = $overview[0]->seen ? true : false;
+                if($read){
+                    $unreadCount++;
+                }
+
                 $mail['subject'] = $overview[0]->subject;
                 $mail['sender'] = $overview[0]->from;
-                $mail['read'] = $overview[0]->seen ? true : false;
+                $mail['read'] = $read;
                 $mail['date'] = $overview[0]->date;
 
                 array_push($emailsData, $mail);
             }
         } 
+
+        $data['unread'] = $unreadCount;
         $data['mails'] = $emailsData;
 
         /* close the connection */
