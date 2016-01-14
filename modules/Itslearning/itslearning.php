@@ -121,6 +121,7 @@ class Itslearning {
   
   public static function getSubjects($user, $password) {
     $ch = self::login($user, $password);
+    $url = "https://candea.itslearning.com";
     
     curl_setopt($ch, CURLOPT_URL, $url.'/Course/AllCourses.aspx');
     $subjectCurl = curl_exec($ch);
