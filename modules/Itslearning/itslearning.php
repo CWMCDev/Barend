@@ -122,7 +122,7 @@ class Itslearning {
   public static function getSubjects($user, $password) {
     $ch = self::login($user, $password);
     $url = "https://candea.itslearning.com";
-    
+
     curl_setopt($ch, CURLOPT_URL, $url.'/Course/AllCourses.aspx');
     $subjectCurl = curl_exec($ch);
     
@@ -134,12 +134,14 @@ class Itslearning {
       if ($subject->class == "ct126_0"){}
       else {
         $subjectArray = array();
+        $i = 0;
         foreach($subject('td a') as $a) {
           if ($a->class == 'ccl-iconlink') {
             echo '<br>';
             $id = str_replace("/main.aspx?CourseID=","",$a->href);
             echo $a->getPlainText().'   :   '.$id;
-            $subjectArray[] = array('subject'=>$a->getPlainText(), 'id'=>$id);
+            $subjectArray[$i] = array('subject'=>$a->getPlainText(), 'id'=>$id);
+            $i++;
           }
         }
         $return['subjects'] = $subjectArray;
