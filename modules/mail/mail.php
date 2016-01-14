@@ -29,7 +29,7 @@ class Mail{
                 $message = imap_fetchbody($inbox,$email_number,2);
 
                 $read = $overview[0]->seen ? true : false;
-                if($read){
+                if(!$read){
                     $unreadCount++;
                 }
 
