@@ -128,19 +128,23 @@ class Itslearning {
     $html = str_get_dom($subjectCurl);
     $subjects = $html('div.itsl-formbox div div div table tr');
     
-    $return = array(subjects=>array());
+    $return = array('subjects'=>array());
     foreach($subjects as $subject) {
       if ($subject->class == "ct126_0"){}
       else {
+        $subjectArray = array();
         foreach($subject('td a') as $a) {
           if ($a->class == 'ccl-iconlink') {
             echo '<br>';
             $id = str_replace("/main.aspx?CourseID=","",$a->href);
             echo $a->getPlainText().'   :   '.$id;
+            $subjectArray[] = array('subject'=>$a->getPlainText(), 'id'=>$id);
           }
         }
+        $return['subjects'] = $subjectArray;
       }
     }
+    return $return;
   }
 }
 ?>

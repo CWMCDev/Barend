@@ -174,9 +174,16 @@ $app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $to
     
 });
 
+
+// Itslearning
 $app->get('/itslearning/test/:username/:password', function($username, $password) use($app) {
 	$itslearning = new Itslearning();
 	$itslearning->login($username, $password);
+});
+
+$app->get('/itslearning/subjects/:username/:password', function($username, $password) use($app) {
+  $itslearning = new Itslearning();
+  createResponse($itslearning->getSubjects($username, $password));
 });
 
 $app->get('/test', function() use($app) {
