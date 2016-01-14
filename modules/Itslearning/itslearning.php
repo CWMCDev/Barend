@@ -59,6 +59,8 @@ class Itslearning {
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
     $ret = curl_exec($ch); // Get result after login page.
     
+    return $ch;
+    /*
     // Alle Vakken
     curl_setopt($ch, CURLOPT_URL, $url.'/Course/AllCourses.aspx');
     //td a.ccl-iconlink
@@ -112,6 +114,31 @@ class Itslearning {
 
         }
         
+      }
+    }
+    */
+  }
+  
+  public static getSubjects($user, $password) {
+    $ch = self::login($user, $password);
+    
+    curl_setopt($ch, CURLOPT_URL, $url.'/Course/AllCourses.aspx');
+    $subjectCurl = curl_exec($ch);
+    
+    $html = str_get_dom($subjectCurl);
+    $subjects = $html('div.itsl-formbox div div div table tr');
+    
+    $return = array(subjects=>array());
+    foreach($subjects as $subject) {
+      if ($subject->class == "ct126_0"){}
+      else {
+        foreach($subject('td a') as $a) {
+          if ($a->class == 'ccl-iconlink') {
+            echo '<br>';
+            $id = str_replace("/main.aspx?CourseID=","",$a->href);
+            echo $a->getPlainText().'   :   '.$id;
+          }
+        }
       }
     }
   }
