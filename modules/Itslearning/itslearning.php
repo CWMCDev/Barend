@@ -132,10 +132,10 @@ class Itslearning {
     $return = array('subjects'=>array());
 
     $i = 0;
+    $subjectArray = array();
     foreach($subjects as $subject) {
       if ($subject->class == "ct126_0"){}
       else {
-        $subjectArray = array();
         foreach($subject('td a') as $a) {
           if ($a->class == 'ccl-iconlink') {
             echo '<br>';
@@ -145,9 +145,10 @@ class Itslearning {
             $i++;
           }
         }
-        $return['subjects'] = $subjectArray;
+        
       }
     }
+    $return['subjects'] = $subjectArray;
     return $return;
   }
 }
