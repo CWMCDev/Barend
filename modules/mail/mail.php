@@ -41,9 +41,9 @@ class Mail{
                 $overview = imap_fetch_overview($inbox,$email_number,0);
                 $message = imap_fetchbody($inbox,$email_number,2);
 
-                $mail['read'] = $overview[0]->seen ? true : false;
                 $mail['subject'] = $overview[0]->subject;
                 $mail['sender'] = $overview[0]->from;
+                $mail['read'] = $overview[0]->seen ? true : false;
                 $mail['date'] = $overview[0]->date;
 
                 array_push($emailsData, $mail);
