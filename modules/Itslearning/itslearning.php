@@ -130,11 +130,12 @@ class Itslearning {
     $subjects = $html('div.itsl-formbox div div div table tr');
     
     $return = array('subjects'=>array());
+
+    $i = 0;
     foreach($subjects as $subject) {
       if ($subject->class == "ct126_0"){}
       else {
         $subjectArray = array();
-        $i = 0;
         foreach($subject('td a') as $a) {
           if ($a->class == 'ccl-iconlink') {
             echo '<br>';
