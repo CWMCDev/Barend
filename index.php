@@ -106,7 +106,7 @@ $app->get('/mail/:user/:token', function ($user, $token) use($app) {
   $authStatus = checkAuth($user, $token);
   if($authStatus === true){
     $password = getPassword($user, $token);
-    $portal = new Mail();
+    $mail = new Mail();
     createResponse($mail->getMail($user, $password));
   }else{
     $app->halt(401, json_encode($authStatus));

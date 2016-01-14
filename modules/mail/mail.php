@@ -3,8 +3,8 @@ class Mail{
     public static function getMail($user='', $password='') {
         $hostname = '{outlook.office365.com:993/imap/ssl}INBOX';
         $username = $user.'@ll.candea.nl';
-        $password = 'AirbusA380';
 
+        $data = array();
         /* try to connect */
 
         $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Outlook: ' . imap_last_error());
@@ -25,7 +25,7 @@ class Mail{
             }
         }
 
-        echo $count;
+        $data['unread'] = $count
 
         /* if emails are returned, cycle through each... */
         if($emails) {
@@ -59,6 +59,7 @@ class Mail{
 
         /* close the connection */
         imap_close($inbox);
+        return $data;
     }
 }
 
