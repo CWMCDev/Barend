@@ -25,7 +25,7 @@ class Mail{
             }
         }
 
-        $data['unread'] = $count
+        $data['unread'] = $count;
 
         /* if emails are returned, cycle through each... */
         if($emails) {
