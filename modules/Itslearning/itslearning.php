@@ -138,9 +138,7 @@ class Itslearning {
       else {
         foreach($subject('td a') as $a) {
           if ($a->class == 'ccl-iconlink') {
-            echo '<br>';
             $id = str_replace("/main.aspx?CourseID=","",$a->href);
-            echo $a->getPlainText().'   :   '.$id;
             $subjectArray[$i] = array('subject'=>$a->getPlainText(), 'id'=>$id);
             $i++;
           }
