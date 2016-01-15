@@ -37,7 +37,7 @@ class Mail{
                 $mail['sender'] = $overview[0]->from;
                 $mail['read'] = $read;
                 $mail['date'] = $overview[0]->date;
-                $mail['message'] = $message;
+                $mail['message'] = htmlentities($message);
 
                 array_push($emailsData, $mail);
             }
