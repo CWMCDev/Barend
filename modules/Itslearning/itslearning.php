@@ -240,7 +240,9 @@ class Itslearning {
 
     $participantsArray = array();
     foreach ($participants as $participant) {
-      $participantsArray[] = array('name'=>$participant('td a')[0]->getPlainText(), 'type'=>$participant('td')[2]->getPlainText());
+      if ($participant('td a')) {
+        $participantsArray[] = array('name'=>$participant('td a')[0]->getPlainText(), 'type'=>$participant('td')[2]->getPlainText());
+      }
     }
 
     $return['participants'] = $participantsArray;
