@@ -225,6 +225,27 @@ class Itslearning {
 
     return $planner;
   }
+
+  public static function getParticipants($user, $password, $id) {
+    $ch = self::login($user, $password);
+    $url = "https://candea.itslearning.com";
+
+    curl_setopt($ch, CURLOPT_URL, $url.'/Course/Participants.aspx?CourseID='.$id);
+    $curl = curl_exec($ch);
+
+    $html = str_get_dom($curl);
+    $participants = $html('table#ctl00_ContentPlaceHolder_ParticipantsGrid_T tbody tr');
+    
+    $return = array('participants'=>array());
+
+    $participantsArray = array();
+    foreach ($participants as $participant) {
+      $participantsArray[] = array('name'=>$participant('td a')[0]->getPlainText(), 'type'=>$participant('td')[2]->getPlainText());
+    }
+
+    $return['participants'] = $participantsArray;
+    return $return;
+  }
   
 }
 ?>

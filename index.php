@@ -198,6 +198,11 @@ $app->get('/itslearning/planner/:subjectID/:username/:password', function($subje
   createResponse($itslearning->getPlanner($username, $password, $subjectID));
 });
 
+$app->get('/itslearning/participants/:subjectID/:username/:password', function($subjectID, $username, $password) use($app) {
+  $itslearning = new Itslearning();
+  createResponse($itslearning->getParticipants($username, $password, $subjectID));
+});
+
 $app->get('/test', function() use($app) {
 	$app->halt(403, json_encode(['error' => "This endpoint is just for debugging"]));
 });
