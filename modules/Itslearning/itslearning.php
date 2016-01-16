@@ -149,5 +149,84 @@ class Itslearning {
     $return['subjects'] = $subjectArray;
     return $return;
   }
+
+
+  public static function getPlanner($user, $password, $id) {
+    $ch = self::login($user, $password);
+    $url = "https://candea.itslearning.com";
+
+    curl_setopt($ch, CURLOPT_URL, $url.'/LessonPlan/LessonPlanner.aspx?LocationID='.$id);
+    $curl = curl_exec($ch);
+    
+    echo $curl;
+
+    $html = str_get_dom($curl);
+    $weeks = $html('table tr');
+    
+    $i = 0;
+    $planner = array('weeks'=>array());
+    $theme = "";
+
+    $weekArray = array();
+    foreach ($weeks as $week) {
+
+      $weeknr = 0;
+      $description = "";
+      $date = "";
+      $sources = "";
+      $activities = "";
+      $homework = "";
+
+      $tdi = 0;
+      $themeBool = false;
+      foreach ($week('td') as $td) {
+        if ($td->class == "theme-column") {
+          $theme = $td->getPlainText();
+          $themeBool = true;
+        } else {
+          if ($themeBool) {
+            if ($tdi == 1) {
+              $weeknr = $td->getPlainText();
+            } else if ($tdi == 2) {
+              $description = $td->getPlainText();
+            } else if ($tdi == 3) {
+              $date = $td->getPlainText();
+            } else if ($tdi == 4) {
+              $sources = $td->getPlainText();
+            } else if ($tdi == 5) {
+              $activities = $td->getPlainText();
+            } else if ($tdi == 6) {
+              $homework = $td->getPlainText();
+            } 
+          } else {
+            if ($tdi == 0) {
+              $weeknr = $td->getPlainText();
+            } else if ($tdi == 1) {
+              $description = $td->getPlainText();
+            } else if ($tdi == 2) {
+              $date = $td->getPlainText();
+            } else if ($tdi == 3) {
+              $sources = $td->getPlainText();
+            } else if ($tdi == 4) {
+              $activities = $td->getPlainText();
+            } else if ($tdi == 5) {
+              $homework = $td->getPlainText();
+            } 
+          }
+          
+        }
+        $tdi++;
+      }
+      if ($week->class == 'itsl-lesson-planner-toolbar-row' ||$week->class == 'itsl-lesson-planner-feedback-row' ||$week->class == 'alternate') {} else {
+        $weekArray[] = array('theme'=>$theme, 'week'=>$weeknr, 'description'=>$description, 'date'=>$date, 'sources'=>$sources, 'activities'=>$activities, 'homework'=>$homework);
+      }
+      
+      
+    }
+    $planner['weeks'] = $weekArray;
+
+    return $planner;
+  }
+  
 }
 ?>
