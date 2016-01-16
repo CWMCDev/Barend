@@ -157,8 +157,6 @@ class Itslearning {
 
     curl_setopt($ch, CURLOPT_URL, $url.'/LessonPlan/LessonPlanner.aspx?LocationID='.$id);
     $curl = curl_exec($ch);
-    
-    echo $curl;
 
     $html = str_get_dom($curl);
     $weeks = $html('table tr');
@@ -186,7 +184,7 @@ class Itslearning {
         } else {
           if ($themeBool) {
             if ($tdi == 1) {
-              $weeknr = $td->getPlainText();
+              $weeknr = str_replace('Week', "", $td->getPlainText());
             } else if ($tdi == 2) {
               $description = $td->getPlainText();
             } else if ($tdi == 3) {
