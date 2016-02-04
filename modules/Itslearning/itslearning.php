@@ -5,8 +5,6 @@ class Itslearning {
   $ckfile = tempnam("/tmp", "CURLCOOKIE");
   $useragent = 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.2 (KHTML, like Gecko) Chrome/5.0.342.3 Safari/533.2';
 
-    $f = fopen('log.txt', 'w'); // file to write request header for debug purpose
-
      /**
         Get __VIEWSTATE & __EVENTVALIDATION
      */
@@ -42,7 +40,6 @@ class Itslearning {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_REFERER, $url);
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
-    curl_setopt($ch, CURLOPT_STDERR, $f);
     curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
   
     // Collecting all POST fields
