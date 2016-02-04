@@ -153,15 +153,13 @@ $app->get('/zportal/schedule/:type/:id/:week/:token', function($type, $id, $week
     
     createResponse($scheduleData);
 });
-$app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $token, $user, $userToken) use($app) {
-  
-  
+$app->get('/zportal/schedule/:type/:id/:week/:token/:user/:userToken', function($type, $id, $week, $token, $user, $userToken) use($app) {
 	if($week == 0) {
 		$week = date('W');
 	}
 	$zportal = new Zportal();
 	$zportal->setToken($token);
-	$schedule = $zportal->getSchedule($week, "student", "self");
+	$schedule = $zportal->getSchedule($week, $type, $id);
 	if($schedule->response->status != 200) {
 		if($schedule->response->status == 401) {
 			$app->halt(401, json_encode(['error' => 'The token is incorrect']));
