@@ -38,9 +38,14 @@ class Zportal {
 	 * @return array    array(start, end)
 	 */
 	public function getStartEnd($year = 0, $week = 0) {
-		$wt = strtotime($year."W".$week);
-		$start = strtotime('last Monday', $wt);
-		$end = strtotime('next Sunday', $wt) + 86400;
+    $start = 0;
+    if (strlen($week) < 2) {
+      $start = strtotime($year."W0".$week);
+    } else {
+      $start = strtotime($year."W".$week);
+    }
+    $end = $start + 604800;
+    
 		return array($start, $end);
 	}
 
