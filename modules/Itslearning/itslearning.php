@@ -119,6 +119,39 @@ class Itslearning {
     */
   }
   
+  public static function getDTDL($user, $password) {
+    $ch = self::login($user, $password);
+    $url = "https://candea.itslearning.com";
+    
+    // Candea Dashboard
+    curl_setopt($ch, CURLOPT_URL, $url.'/Dashboard/Dashboard.aspx?LocationId=1&LocationType=Hierarchy');
+    
+    $src = curl_exec($ch);
+    
+    $html = str_get_dom($src);
+    $DTDL = $html('div.extension iframe');
+    
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, $DTDL[0]->src);
+    $digitalContent = curl_exec($ch);
+    
+    $sgsgsg = str_get_dom($digitalContent);
+    
+    $links = $sgsgsg('ul');
+    $subjects = $sgsgsg('h2');
+    
+    $i = 1;
+    foreach ($subjects as $subject) {
+      echo $subject->getPlainText() . '<br>';
+      $contents = $links[$i]('li a');
+      foreach ($contents as $content) {
+        echo $content->getPlainText() . ' - ' . $content->href . '<br>';
+      }
+      echo '<br>';
+      $i++;
+    }
+  }
+  
   public static function getSubjects($user, $password) {
     $ch = self::login($user, $password);
     $url = "https://candea.itslearning.com";

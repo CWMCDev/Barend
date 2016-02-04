@@ -193,6 +193,11 @@ $app->get('/itslearning/subjects/:username/:password', function($username, $pass
   createResponse($itslearning->getSubjects($username, $password));
 });
 
+$app->get('/itslearning/digitalcontents/:username/:password', function($username, $password) use($app) {
+  $itslearning = new Itslearning();
+  createResponse($itslearning->getDTDL($username, $password));
+});
+
 $app->get('/itslearning/planner/:subjectID/:username/:password', function($subjectID, $username, $password) use($app) {
   $itslearning = new Itslearning();
   createResponse($itslearning->getPlanner($username, $password, $subjectID));
