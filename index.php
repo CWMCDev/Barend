@@ -104,7 +104,7 @@ $app->get('/portal/students/presention/:user/:token', function ($user, $token) u
 
 $app->get('/vacations', function() use($app) {
   $vacations = file_get_contents('modules/utilities/vacations.json');
-  $vacData = json_decode($vacations);
+  $vacData = json_decode($vacations, true);
   createResponse($vacations);
 });
 
