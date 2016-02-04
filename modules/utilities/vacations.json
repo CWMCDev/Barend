@@ -1,7 +1,7 @@
 { "vacations": [  
     {"week": [44], "name": "herfstvakantie", "start": "26-10-2015", "end": "30-10-2015"},
     {"week": [52, 53], "name": "Kerstvakantie", "start": "21-12-2015", "end": "01-01-2016"},
-    {"week": [6], "name": "Voorjaarsvakantie", "start": "8-02-2016", "end": "12-02-2016"},
+    {"week": [6], "name": "Voorjaarsvakantie", "start": "08-02-2016", "end": "12-02-2016"},
     {"week": [12, 13], "name": "Pasen", "start": "25-03-2016", "end": "28-03-2016"},
     {"week": [17], "name": "Koningsweek", "start": "25-04-2016", "end": "29-04-2016"},
     {"week": [18], "name": "Meivakantie", "start": "02-05-2016", "end": "06-05-2016"},
