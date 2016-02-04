@@ -103,7 +103,7 @@ $app->get('/portal/students/presention/:user/:token', function ($user, $token) u
 });
 
 $app->get('/vacations', function() use($app) {
-  echo(file_get_contents('/modules/utilites/vacations.json'));
+  echo(file_get_contents('/modules/utilities/vacations.json'));
 });
 
 $app->get('/mail/:user/:token', function ($user, $token) use($app) {
