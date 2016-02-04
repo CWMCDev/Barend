@@ -123,6 +123,8 @@ class Zportal {
 		$url = $this->base_url.'/appointments?'.$type.'='.$id.'&access_token='.$this->token.$startend;
 		$curl = curl::get($url);
 		$json = json_decode($curl);
+    
+    echo $json;
 		return $json;
 	}
 
