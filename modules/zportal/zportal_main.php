@@ -117,7 +117,7 @@ class Zportal {
     }
     
     if ($id == 'self') {
-      $id == '~me';
+      $id = '~me';
     }
     
 		$url = $this->base_url.'/appointments?'.$type.'='.$id.'&access_token='.$this->token.$startend;
