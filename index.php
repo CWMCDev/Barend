@@ -175,7 +175,7 @@ $app->get('/zportal/schedule/:type/:id/:week/:token/:user/:userToken', function(
     
     createResponse($scheduleData);
     
-    echo '<br><br>'
+    echo '<br><br>';
     
     $authStatus = checkAuth($user, $userToken);
     if($authStatus === true){
