@@ -124,7 +124,6 @@ class Zportal {
 		$curl = curl::get($url);
 		$json = json_decode($curl);
     
-    echo $curl;
 		return $json;
 	}
 

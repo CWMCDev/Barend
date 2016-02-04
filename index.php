@@ -161,7 +161,7 @@ $app->get('/zportal/schedule/:week/:token/:user/:userToken', function($week, $to
 	}
 	$zportal = new Zportal();
 	$zportal->setToken($token);
-	$schedule = $zportal->getSchedule($week, 'student', 'self');
+	$schedule = $zportal->getSchedule($week, "student", "self");
 	if($schedule->response->status != 200) {
 		if($schedule->response->status == 401) {
 			$app->halt(401, json_encode(['error' => 'The token is incorrect']));
