@@ -173,10 +173,6 @@ $app->get('/zportal/schedule/:type/:id/:week/:token/:user/:userToken', function(
     }
     usort($scheduleData, "cmp");
     
-    createResponse($scheduleData);
-    
-    echo '<br><br>';
-    
     $authStatus = checkAuth($user, $userToken);
     if($authStatus === true){
       $password = getPassword($user, $userToken);
