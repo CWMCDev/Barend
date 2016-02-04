@@ -183,9 +183,9 @@ public static function parseProfile($page) {
 
   $data = array('student'=>array('name'=>$name[0]('tr td')[0]->getPlainText(), 'studentnumber'=>$name[0]('tr td')[2]->getPlainText(), 'class'=>$name[0]('tr td')[4]->getPlainText(), 
                'birthdate'=>$name[1]('tr td')[1]->getPlainText(), 'phonenumbers'=>array('home'=>$name[1]('tr td')[3]->getPlainText(), 'mobile'=>$name[1]('tr td')[5]->getPlainText())), 
-               'adress'=>array('street'=>$name[2]('tr td')[2]->getPlainText(), 'zipcode'=>$name[2]('tr td')[4]->getPlainText(), 'place'=>$name[2]('tr td')[6]->getPlainText()), 
+               'address'=>array('street'=>$name[2]('tr td')[2]->getPlainText(), 'zipcode'=>$name[2]('tr td')[4]->getPlainText(), 'residence'=>$name[2]('tr td')[6]->getPlainText()), 
                'mentor'=>array('name'=>$name[3]('tr td')[2]->getPlainText(), 'abbreviation'=>$name[3]('tr td')[4]->getPlainText(), 'email'=>$name[3]('tr td')[6]->getPlainText()), 
-               'Profile'=>array('profile'=>$name[4]('tr td')[2]->getPlainText(), 'code'=>$name[4]('tr td')[4]->getPlainText(), 'abbreviation'=>$name[4]('tr td')[6]->getPlainText(), 'year'=>$name[4]('tr td')[8]->getPlainText()));
+               'profile'=>array('profile'=>$name[4]('tr td')[2]->getPlainText(), 'code'=>$name[4]('tr td')[4]->getPlainText(), 'abbreviation'=>$name[4]('tr td')[6]->getPlainText(), 'year'=>$name[4]('tr td')[8]->getPlainText()));
   
   return $data;
 }
