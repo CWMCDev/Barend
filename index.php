@@ -179,7 +179,7 @@ $app->get('/zportal/schedule/:type/:id/:week/:token/:user/:userToken', function(
       $integrater = new integrate();
     
       $portal = new Portal();
-      if($portal->login($user, $pass)) {
+      if($portal->login($user, $password)) {
         createResponse($integrater::addPresention($scheduleData, $portal->getPresention(), $week));
       } else {
         $app->halt(401, json_encode(['error' => 'Wrong Password or Username!']));
