@@ -102,7 +102,6 @@ class Zportal {
 
 			$startend = $this->getStartEnd($year, $week);
 			$startend = '&start='.$startend[0].'&end='.$startend[1];
-      echo $startend;
 		}
     
     if ($type == 'student') {
